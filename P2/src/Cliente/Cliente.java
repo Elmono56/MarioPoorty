@@ -21,7 +21,7 @@ public class Cliente {
    Socket cliente = null;//para la comunicacion
    String nomCliente;// nombre del user
    String personaje,opciones,aux;
-   
+   //comentario
    
 //   ObjectInputStream entrada=null;
 //   ObjectOutputStream salida=null;

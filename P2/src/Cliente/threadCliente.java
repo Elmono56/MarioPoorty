@@ -16,8 +16,6 @@ public class threadCliente extends Thread{
    //ObjectInputStream entrada;
    Juego vcli; //referencia a cliente
    
-   
-   
    public threadCliente (DataInputStream entrada,Juego vcli) throws IOException
    {
       this.entrada=entrada;
