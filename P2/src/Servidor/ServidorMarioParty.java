@@ -22,7 +22,7 @@ public class ServidorMarioParty {
     private ArrayList<Personajes> personajes= new ArrayList<Personajes>();
     private ArrayList<Integer> disponibles = new ArrayList<Integer>();//manera de seleccionar los personajes
     
-    private int cant=1,jugadores=6;    
+    private int cant,jugadores=6;    
     private boolean accept=true;
 
     
@@ -50,8 +50,8 @@ public void runServer(){
                 if(isAccept()==false)break;
                 
                 cliente.add(serv.accept());
-                ventana.mostrar("Cliente "+cant+" Aceptado");
-                user.add(new threadServidor(cliente.get(cant), this,cant));
+                ventana.mostrar("Cliente "+cant+1+" Aceptado");
+                user.add(new threadServidor(cliente.get(cant), this,cant+1));
                 user.get(cant).start();
                 cant+=1;
             }
