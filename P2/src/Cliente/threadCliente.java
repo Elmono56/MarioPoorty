@@ -13,13 +13,17 @@ import java.io.*;
 public class threadCliente extends Thread{
    //solo de lectura
      DataInputStream entrada;
-   //ObjectInputStream entrada;
-   Juego vcli; //referencia a cliente
-   
-   public threadCliente (DataInputStream entrada,Juego vcli) throws IOException
+     Juego vcli; //referencia a cliente
+     Prueba vtn;
+     
+     
+     
+     
+   public threadCliente ( DataInputStream entrada,Juego vcli) throws IOException
    {
       this.entrada=entrada;
       this.vcli=vcli;
+      this.vtn= new Prueba();
    }
    
    public void run()
@@ -37,7 +41,8 @@ public class threadCliente extends Thread{
             
             switch(opcion)
             {
-
+                case 0:
+                    vtn.setVisible(true);
                     
             }
          }
