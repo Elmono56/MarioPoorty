@@ -29,6 +29,7 @@ public class FrameServidor extends javax.swing.JFrame {
 
         TextAreaServidor.setColumns(20);
         TextAreaServidor.setRows(5);
+        TextAreaServidor.setEnabled(false);
         jScrollPane1.setViewportView(TextAreaServidor);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

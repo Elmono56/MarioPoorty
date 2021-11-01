@@ -8,6 +8,7 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 
 /**
  *
@@ -67,7 +68,7 @@ public class Cliente {
                 int cant;
                 cant=Integer.parseInt(JOptionPane.showInputDialog("Introducir Cantidad de Jugadores :"));
                 
-                //NOTA: agregar validaciones de entero y que sea menor a 6
+                //NOTA: agregar validaciones de entero y que sea menor O IGUAL a 6
                 
                 salida.writeInt(cant);
             }
@@ -86,15 +87,19 @@ public class Cliente {
             
       
             vtnEscoger= new EscogerPersonajes(this.disponibles);
+
+
             while(true){
                 
-                JOptionPane.showInternalMessageDialog(null,vtnEscoger);
+                JOptionPane.showInternalMessageDialog(null, vtnEscoger, "PERSONAJES", HIDE_ON_CLOSE);
                 if(vtnEscoger.getOut()!=0){
+                    //envia la lista actualizada
                     this.salidaObj.writeObject(vtnEscoger.getPersonajes());
                     break;
                 }
             }
             
+            //envia el personaje seleccionado
             this.salida.writeInt(vtnEscoger.getSeleccionado());
             
             
@@ -109,7 +114,7 @@ public class Cliente {
       // a la ventana gato puede colocar en la pantalla cualquier cosa, como las
       //imagenes de X o O, llamar a metodo marcar, colocar el nombre de enemigo
       // o el suyo propio
-      new threadCliente(entrada, ventanaCliente).start();
+      new threadCliente(entrada,salida, ventanaCliente,nomCliente).start();
    }
    
    //GETTET AND SETTER

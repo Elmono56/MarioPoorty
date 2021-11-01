@@ -5,12 +5,15 @@
  */
 package Servidor;
 
-import Personajes.Personajes;
+//import Personajes.Personajes;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+//import java.util.Collection;
+import java.util.*;
+import java.util.Random;
 
 
 /**
@@ -26,7 +29,9 @@ public class ServidorMarioParty implements Serializable{
         
     private ArrayList<Integer> disponibles = new ArrayList<Integer>();
         
-    private int cant,jugadores=6;    
+    private int cant,jugadores=6; 
+    
+    private Random r=new Random();
     
     
     
@@ -51,14 +56,15 @@ public void runServer(){
                 cliente.add(serv.accept());
                 ventana.mostrar("Cliente "+(cant+1)+" Aceptado");
                 user.add(new threadServidor(cliente.get(cant), this,(cant+1)));
+                
                 user.get(cant).start();
+                
                 cant+=1; 
             }
             
             while(true){
                 int finish=0;
                 for (int i = 0; i < user.size(); i++) {
-                    //if(!user.get(i).getNameUser().equals(""));
                     if(user.get(i).getPersonaje()!=null)
                     finish++;
                 }
@@ -70,17 +76,36 @@ public void runServer(){
             addContrincantes();
             ventana.mostrar("se asignaron los enemigos");
            // verContrincantes();
-            
-           
+
            //iniciar tablero
             ventana.mostrar("partida iniciada");
+           
+            // proceso de orden de turnos
+            int ordenT=r.nextInt(2);
+            if(ordenT==0){
             
-            
-            
-            for (int i = 0; i < user.size(); i++) {
-                System.out.println(user.get(i).getPersonaje().getNum());
+                ordenDados(ordenT);
+                Collections.sort(user);
+                Collections.copy(user, user);
+                Collections.reverse(user);
                 
+
+            }else{
+                int corte=r.nextInt(1000)+1;
+                ventana.mostrar("el corte es: "+corte);
+                ordenNum(ordenT,corte);
+                Collections.sort(user);
+                Collections.copy(user, user);
             }
+            
+            //ya user esta ordenada por turnos 
+            ventana.mostrar("el nuevo orden es: ");
+            for (int i = 0; i < user.size(); i++) {
+            ventana.mostrar(user.get(i).getNameUser()+" "+user.get(i).getResultadoOrden()+" "+user.get(i).getPersonaje().getIcon());
+            }
+
+            
+            
             
             while (true)
             {
@@ -124,7 +149,7 @@ public void runServer(){
     
     
    //metodos
-    void addContrincantes(){
+    private void addContrincantes(){
         
         for (int i = 0; i < user.size(); i++) {
             for(int y=0; y<user.size();y++){
@@ -136,7 +161,7 @@ public void runServer(){
         }
     }
     
-    public void verContrincantes(){
+    private void verContrincantes(){
         String str="";
         for (int i = 0; i < user.size(); i++) {
             ventana.mostrar("enemigos de: "+user.get(i).getNameUser());
@@ -148,5 +173,46 @@ public void runServer(){
         }
 
     }
+    
+    
+    private void ordenDados(int ordenT){
 
+        
+        for (int i = 0; i < user.size(); i++) {
+            user.get(i).lanzarOrden(ordenT);
+        }
+        
+        while(true){
+            int finish=0;
+            for (int i = 0; i < user.size(); i++) {
+                if(user.get(i).getResultadoOrden()!=-1)
+                    finish++;
+            }
+            if(finish==user.size())break;
+        }
+    }
+    
+    private void ordenNum(int ordenT,int corte){
+
+        for (int i = 0; i < user.size(); i++) {
+            user.get(i).lanzarOrden(ordenT);
+        }
+        
+        while(true){
+            int finish=0;
+            for (int i = 0; i < user.size(); i++) {
+                int res=user.get(i).getResultadoOrden();
+                if(res!=-1){
+                    if(res>corte)user.get(i).setResultadoOrden(res-corte);
+                    if(corte>res)user.get(i).setResultadoOrden(corte-res);
+                    if(corte==res)user.get(i).setResultadoOrden(0);
+                    finish++;
+                    res=-1;
+                }
+            }
+            if(finish==user.size())break;
+        }
+
+    }
+    
 }

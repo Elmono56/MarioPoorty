@@ -9,20 +9,18 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author chave
  */
 
 
-public class threadServidor extends Thread implements Serializable{
+public class threadServidor extends Thread implements Serializable,Comparable<threadServidor>{
     //variables 
     private Socket cliente = null;   //referencia a socket de comunicacion de cliente
     
     private DataInputStream entrada=null;   //Para leer comunicacion
     private DataOutputStream salida=null;   //Para enviar comunicacion	
-   
     private ObjectOutputStream salidaObj = null;
     private ObjectInputStream entradaObj = null;
     
@@ -32,10 +30,11 @@ public class threadServidor extends Thread implements Serializable{
     
     private ServidorMarioParty servidor;   // referencia al servidor
     
+    ArrayList<threadServidor> usuarios;
     ArrayList<threadServidor> enemigos= new ArrayList<threadServidor>(); // para envio de informacion al enemigo
     
-    int numeroDeJugador;//numero de jugador
-     
+    int numeroDeJugador,opcion;//numero de jugador
+    private int puesto=-1; 
      
     
 
@@ -88,17 +87,15 @@ public class threadServidor extends Thread implements Serializable{
             entradaObj=new ObjectInputStream(cliente.getInputStream());
             servidor.setDisponibles((ArrayList<Integer>)entradaObj.readObject());
             servidor.ventana.mostrar("se actualizo la lista de personajes...");
-            
-            
             this.personaje=new Personajes(entrada.readInt());
-            //System.out.println(this.personaje.getNum());
+
             
-
-
+//Orden de juego 
+            //ordenDeJuego();
             //enviarAContrincantes();
 
          } catch (Exception e) { e.printStackTrace(); }
-        int opcion;        
+        //int opcion;        
         while(true){
         
             
@@ -108,12 +105,26 @@ public class threadServidor extends Thread implements Serializable{
              
              switch(opcion)
              {
-//                 case 0:
-//                     servidor.setDisponibles((ArrayList<Integer>) entradaObj.readObject());
-//                     System.out.println(servidor.getInt());
-//                         break;
+                case 0:
+                        this.puesto=entrada.readInt();
+                        break;
              }
                 
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
              
             } catch (Exception e) { 
                 
@@ -132,9 +143,29 @@ public class threadServidor extends Thread implements Serializable{
         
      }
       
- //Envia su informacion a todos los demas usuarios excepto él
-   
-     public void enviarAContrincantes(){
+    
+
+    
+    //envia el numero del juego a abrir para el orden 
+    public void lanzarOrden(int ordenT){
+        
+        try {            
+            
+            if(ordenT==0)
+                salida.writeInt(0);
+            
+            if (ordenT==1)
+                salida.writeInt(1);
+            
+        } catch (Exception e) {
+        }
+
+        
+    }
+
+
+//Envia su informacion a todos los demas usuarios excepto él    
+    public void enviarAContrincantes(){
          if (enemigos != null)
         {
         try
@@ -152,17 +183,45 @@ public class threadServidor extends Thread implements Serializable{
     
     
     
-//Getter an Setter...
+//Getter
      public String getNameUser(){
        return nameUser;
      }
+
+    public Personajes getPersonaje(){
+        return this.personaje;
+    }
+        
+    public int getResultadoOrden(){
+    
+        return this.puesto;
+    }   
+    
+    
+//SETTER
     
      public void setNameUser(String name){
        nameUser=name;
      }
 
-    public Personajes getPersonaje(){
-        return this.personaje;
+    public void setOpcion(int num){
+  
+        this.opcion=num;
+    }
+
+    public void setResultadoOrden(int num){
+  
+        this.puesto=num;
+    }
+    
+    //sirve para poder reordenar la lista
+    public int compareTo(threadServidor compareUser) {
+        
+        int compareResultado=((threadServidor)compareUser).getResultadoOrden();
+
+        return this.puesto-compareResultado;//para prden ascendente solo intercambiar
+
+
     }
 
 }

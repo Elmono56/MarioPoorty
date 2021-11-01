@@ -25,26 +25,26 @@
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="Btn6" min="-2" pref="97" max="-2" attributes="0"/>
+                      <Component id="Btn6" min="-2" pref="88" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="Btn7" min="-2" pref="97" max="-2" attributes="0"/>
+                      <Component id="Btn7" min="-2" pref="88" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="Btn8" min="-2" pref="97" max="-2" attributes="0"/>
+                      <Component id="Btn8" min="-2" pref="88" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="Btn9" min="-2" pref="97" max="-2" attributes="0"/>
+                      <Component id="Btn9" min="-2" pref="88" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="Btn0" min="-2" pref="97" max="-2" attributes="0"/>
+                      <Component id="Btn0" min="-2" pref="88" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="Btn1" min="-2" pref="97" max="-2" attributes="0"/>
+                      <Component id="Btn1" min="-2" pref="88" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="Btn2" min="-2" pref="97" max="-2" attributes="0"/>
+                      <Component id="Btn2" min="-2" pref="88" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="Btn3" min="-2" pref="97" max="-2" attributes="0"/>
+                      <Component id="Btn3" min="-2" pref="88" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="Btn4" min="-2" pref="97" max="-2" attributes="0"/>
+                      <Component id="Btn4" min="-2" pref="88" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="Btn5" min="-2" pref="97" max="-2" attributes="0"/>
+                      <Component id="Btn5" min="-2" pref="88" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="21" max="32767" attributes="0"/>
@@ -78,6 +78,9 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="Btn0">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/peach.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
       <Events>
@@ -86,6 +89,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="Btn1">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/browser.jpg"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="1"/>
       </Properties>
       <Events>
@@ -94,6 +100,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="Btn6">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/wario.jpg"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="6"/>
       </Properties>
       <Events>
@@ -102,6 +111,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="Btn7">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/Yoshi.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="7"/>
       </Properties>
       <Events>
@@ -110,6 +122,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="Btn2">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/koopa.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="2"/>
       </Properties>
       <Events>
@@ -118,6 +133,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="Btn3">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/mario.jpg"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="3"/>
       </Properties>
       <Events>
@@ -126,6 +144,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="Btn8">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/skeleton.jpg"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="8"/>
       </Properties>
       <Events>
@@ -134,6 +155,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="Btn4">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/Toad.jpg"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="4"/>
       </Properties>
       <Events>
@@ -142,6 +166,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="Btn9">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/luigi.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="9"/>
       </Properties>
       <Events>
@@ -150,6 +177,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="Btn5">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/miniKong.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="5"/>
       </Properties>
       <Events>

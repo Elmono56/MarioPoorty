@@ -5,7 +5,6 @@
  */
 package Cliente;
 import java.util.ArrayList;
-import javax.swing.JButton;
 /**
  *
  * @author chave
@@ -51,6 +50,7 @@ public class EscogerPersonajes extends javax.swing.JPanel {
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        Btn0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/peach.png"))); // NOI18N
         Btn0.setText("0");
         Btn0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,6 +58,7 @@ public class EscogerPersonajes extends javax.swing.JPanel {
             }
         });
 
+        Btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/browser.jpg"))); // NOI18N
         Btn1.setText("1");
         Btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,6 +66,7 @@ public class EscogerPersonajes extends javax.swing.JPanel {
             }
         });
 
+        Btn6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/wario.jpg"))); // NOI18N
         Btn6.setText("6");
         Btn6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,6 +74,7 @@ public class EscogerPersonajes extends javax.swing.JPanel {
             }
         });
 
+        Btn7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Yoshi.png"))); // NOI18N
         Btn7.setText("7");
         Btn7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,6 +82,7 @@ public class EscogerPersonajes extends javax.swing.JPanel {
             }
         });
 
+        Btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/koopa.png"))); // NOI18N
         Btn2.setText("2");
         Btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,6 +90,7 @@ public class EscogerPersonajes extends javax.swing.JPanel {
             }
         });
 
+        Btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mario.jpg"))); // NOI18N
         Btn3.setText("3");
         Btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +98,7 @@ public class EscogerPersonajes extends javax.swing.JPanel {
             }
         });
 
+        Btn8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/skeleton.jpg"))); // NOI18N
         Btn8.setText("8");
         Btn8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,6 +106,7 @@ public class EscogerPersonajes extends javax.swing.JPanel {
             }
         });
 
+        Btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Toad.jpg"))); // NOI18N
         Btn4.setText("4");
         Btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +114,7 @@ public class EscogerPersonajes extends javax.swing.JPanel {
             }
         });
 
+        Btn9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/luigi.png"))); // NOI18N
         Btn9.setText("9");
         Btn9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +122,7 @@ public class EscogerPersonajes extends javax.swing.JPanel {
             }
         });
 
+        Btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/miniKong.png"))); // NOI18N
         Btn5.setText("5");
         Btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,25 +138,25 @@ public class EscogerPersonajes extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Btn6, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Btn6, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Btn7, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Btn7, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(Btn8, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Btn8, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Btn9, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Btn9, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Btn0, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Btn0, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -265,6 +274,22 @@ public class EscogerPersonajes extends javax.swing.JPanel {
         }
         this.setOut(1);
         this.seleccionado=num;
+        
+        this.Btn0.setEnabled(false);
+        this.Btn1.setEnabled(false);
+        this.Btn2.setEnabled(false);
+        this.Btn3.setEnabled(false);
+        this.Btn4.setEnabled(false);
+        this.Btn5.setEnabled(false);
+        this.Btn6.setEnabled(false);
+        this.Btn7.setEnabled(false);
+        this.Btn8.setEnabled(false);
+        this.Btn9.setEnabled(false);
+        
+        
+        
+        
+        
     }
     
     
