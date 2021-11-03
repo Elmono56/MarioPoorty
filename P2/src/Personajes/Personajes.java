@@ -1,11 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Personajes;
 import javax.swing.ImageIcon;
 import java.io.Serializable;
+import javax.swing.JButton;
+
 /**
  *
  * @author chave
@@ -13,27 +11,93 @@ import java.io.Serializable;
 
 public class Personajes implements Serializable{
         boolean inmovil;
-        int numero,casilla;
+        String nombre;
+        private JButton refButton;
+        int numero,casilla,turno,cantInmovil;
         ImageIcon imagen;
-   
+        
     
-    public Personajes(int numero){//el nombre e imagenes cargarla del mismo pc
+    public Personajes(int numero,String nombre){
         inmovil=false;
-        this.numero=numero;//se podría eliminar
-        this.casilla=-1;
-        setImage(numero);//hacer funcion de agragar la imagen desde la carpeta Imagen con el numero 
+        this.nombre=nombre;
+        this.numero=numero;// ver en que utilizarlo 
+        this.casilla=0;
+        this.turno=0;
+        this.cantInmovil=0;
+        this.refButton=null;
+        setImage(numero);
     }
     
+    
+    //metodos
+    
+     public void avanzarCasillaActual(int avance) {
+        this.casilla += avance;
+    }  
+    
+    
+    
+//getter
     public int getNum(){
     
         return this.numero;
     }
     
+    public String getName(){
+    
+    return this.nombre;
+    }
     public ImageIcon getIcon(){
     
         return this.imagen;
     }
+
+    public int getTurno() {
+        return turno;
+    }
+     public int getCasillaActual() {
+        return casilla;
+    }
+
+    public JButton getRefButton() {
+        return refButton;
+    }
+
+    public boolean getInmovil() {
+        return inmovil;
+    }
+
+    public int getCantInmovil() {
+        return cantInmovil;
+    }
     
+    
+    
+    
+//setter
+    
+    public void setCantInmovil(int cantInmovil) {
+        this.cantInmovil = cantInmovil;
+    }
+
+
+    public void setInmovil(boolean inmovil) {
+        this.inmovil = inmovil;
+    }
+
+    public void setRefButton(JButton refButton) {
+        this.refButton = refButton;
+    }
+
+    public void setTurno(int turno) {
+        this.turno = turno;
+    }
+
+    public void setCasillaActual(int casillaActual) {
+        this.casilla= casillaActual;
+    }
+    
+
     
     private void setImage(int num){
         switch(num)

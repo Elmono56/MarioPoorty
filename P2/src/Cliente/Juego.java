@@ -30,8 +30,9 @@ public class Juego extends javax.swing.JFrame {
             
             cliente = new Cliente(this);
             cliente.conexion();
-            
             TextAreaJugador.append("conectado al servidor..."+cliente.getNombre());
+            
+            
    
         } catch (IOException ex) {
            

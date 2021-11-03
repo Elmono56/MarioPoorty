@@ -48,6 +48,7 @@ public class EscogerPersonajes extends javax.swing.JPanel {
         Btn9 = new javax.swing.JButton();
         Btn5 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(204, 204, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         Btn0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/peach.png"))); // NOI18N
@@ -106,7 +107,7 @@ public class EscogerPersonajes extends javax.swing.JPanel {
             }
         });
 
-        Btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Toad.jpg"))); // NOI18N
+        Btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/toad.jpg"))); // NOI18N
         Btn4.setText("4");
         Btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,9 +142,9 @@ public class EscogerPersonajes extends javax.swing.JPanel {
                         .addComponent(Btn6, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Btn7, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Btn8, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(Btn9, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Btn0, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))

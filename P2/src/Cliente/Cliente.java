@@ -26,6 +26,7 @@ public class Cliente {
    private EscogerPersonajes vtnEscoger;
    private String nomCliente;// nombre del user
    private ArrayList<Integer> disponibles= new ArrayList <Integer>();
+   private int miPersonaje;
    private ObjectInputStream entradaObj=null;
    private ObjectOutputStream salidaObj=null;
  
@@ -100,7 +101,8 @@ public class Cliente {
             }
             
             //envia el personaje seleccionado
-            this.salida.writeInt(vtnEscoger.getSeleccionado());
+            this.miPersonaje=vtnEscoger.getSeleccionado();
+            this.salida.writeInt(this.miPersonaje);
             
             
             
@@ -114,7 +116,7 @@ public class Cliente {
       // a la ventana gato puede colocar en la pantalla cualquier cosa, como las
       //imagenes de X o O, llamar a metodo marcar, colocar el nombre de enemigo
       // o el suyo propio
-      new threadCliente(entrada,salida, ventanaCliente,nomCliente).start();
+      new threadCliente(entrada,entradaObj,salida, ventanaCliente,nomCliente).start();
    }
    
    //GETTET AND SETTER
@@ -126,4 +128,8 @@ public class Cliente {
         return this.disponibles;
     }
 
+    public int getMiPersonaje() {
+        return miPersonaje;
+    }
+    
 }

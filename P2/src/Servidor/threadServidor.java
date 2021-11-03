@@ -20,18 +20,21 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
     private Socket cliente = null;   //referencia a socket de comunicacion de cliente
     
     private DataInputStream entrada=null;   //Para leer comunicacion
-    private DataOutputStream salida=null;   //Para enviar comunicacion	
+    public DataOutputStream salida=null;   //Para enviar comunicacion	
     private ObjectOutputStream salidaObj = null;
     private ObjectInputStream entradaObj = null;
     
     private Personajes personaje=null; //PARA LA INFORMACION DEL CLIENTE
+    
+
      
     String nameUser;    //Para el nombre del usuario de esta conexion
     
     private ServidorMarioParty servidor;   // referencia al servidor
     
-    ArrayList<threadServidor> usuarios;
-    ArrayList<threadServidor> enemigos= new ArrayList<threadServidor>(); // para envio de informacion al enemigo
+   //ArrayList<threadServidor> usuarios;
+    ArrayList<threadServidor> enemigos = new ArrayList<threadServidor>(); // para envio de informacion al enemigo
+    ArrayList<Personajes> jugadores= new ArrayList<Personajes>();
     
     int numeroDeJugador,opcion;//numero de jugador
     private int puesto=-1; 
@@ -87,15 +90,12 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
             entradaObj=new ObjectInputStream(cliente.getInputStream());
             servidor.setDisponibles((ArrayList<Integer>)entradaObj.readObject());
             servidor.ventana.mostrar("se actualizo la lista de personajes...");
-            this.personaje=new Personajes(entrada.readInt());
+            this.personaje=new Personajes(entrada.readInt(),nameUser);
 
             
-//Orden de juego 
-            //ordenDeJuego();
-            //enviarAContrincantes();
+
 
          } catch (Exception e) { e.printStackTrace(); }
-        //int opcion;        
         while(true){
         
             
@@ -108,20 +108,22 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
                 case 0:
                         this.puesto=entrada.readInt();
                         break;
+                 
+
+                case 1:
+                    int movimiento = entrada.readInt();//lee la cantidad de movimientos 
+                    int id= entrada.readInt();//lee el identificador del personaje
+                    for (int i = 0; i < enemigos.size(); i++) {
+                        //System.out.println("enemigo encontrado...");
+                        enemigos.get(i).salida.writeInt(4);
+                        enemigos.get(i).salida.writeInt(movimiento);
+                        enemigos.get(i).salida.writeInt(id);
+                        enemigos.get(i).salida.writeInt(3);
+                        
+                    }
+                    
+                    break;
              }
-                
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
              
              
              
@@ -144,9 +146,9 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
      }
       
     
-
+//metodos
     
-    //envia el numero del juego a abrir para el orden 
+//envia el numero del juego a abrir para el orden 
     public void lanzarOrden(int ordenT){
         
         try {            
@@ -164,19 +166,23 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
     }
 
 
-//Envia su informacion a todos los demas usuarios excepto él    
-    public void enviarAContrincantes(){
-         if (enemigos != null)
-        {
+//manda la regla de abrir el tablero   
+    public void tablero(ArrayList<String>infoCasillas){
+        
         try
             {
-            for (int i = 0; i <enemigos.size() ; i++) {
-                    salida.writeInt(0);
+                salida.writeInt(2);
+               
+                for (int i = 0; i < enemigos.size(); i++) {
+                    jugadores.add(enemigos.get(i).getPersonaje()); 
                 }
+                jugadores.add(getPersonaje());
+                salidaObj.writeObject(jugadores);
+                salidaObj.writeObject(infoCasillas);
+
             }
         catch (Exception e) {e.printStackTrace();}
         }
-    }
      
 
     
