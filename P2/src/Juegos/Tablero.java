@@ -22,6 +22,11 @@ public class Tablero extends javax.swing.JFrame {
     private  Random r= new Random();
     private ArrayList <Personajes> jugadores=null;
     private ArrayList <String> infoCasillas=null;
+    private boolean finish=false;
+    private boolean repite=false;
+    private Personajes jugadorEnTurno=null;
+   
+    
     
     public Tablero(ArrayList <Personajes> jugadores,ArrayList<String> infoCasillas) {
         initComponents();
@@ -202,27 +207,28 @@ public class Tablero extends javax.swing.JFrame {
 
     private void jButtonLanzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLanzarActionPerformed
         int dado1,dado2;
-        for (int i = 0; i < jugadores.size(); i++) {
+        for (int i = 0; i < jugadores.size(); i++) {   
             if(jugadores.get(i).getTurno()==this.turno ){
-                
-                if(jugadores.get(i).getInmovil()==true){
-                    actualizarInfoJugador(jugadores.get(i));
-                    resultadoDados=0;
-                    moverFicha(jugadores.get(i),resultadoDados);
-                    break;
-                }
-                
-                dado1=r.nextInt(6)+1;//resultadoDados
-                dado2=r.nextInt(6)+1;
-                if(verificarDados(jugadores.get(i),dado1,dado2)){
-                    resultadoDados=dado1+dado2;
-                    TxtDados.setText(resultadoDados+"");
-                    System.out.println("entre");
-                    moverFicha(jugadores.get(i),resultadoDados);
-                    break;                        
-                }
+                jugadorEnTurno=jugadores.get(i);
+                break;
             }
         }
+        
+        if(jugadorEnTurno.getInmovil()==true){
+            actualizarJugadorInmovil(jugadorEnTurno);
+            resultadoDados=0;
+            actualizarTurno();
+            return;
+        }
+                
+        dado1=r.nextInt(6)+1;//resultadoDados
+        dado2=r.nextInt(6)+1;
+        if(verificarDados(jugadorEnTurno,dado1,dado2)){
+            resultadoDados=dado1+dado2;
+            TxtDados.setText(resultadoDados+"");
+            moverFicha(jugadorEnTurno,resultadoDados);
+        }
+
         actualizarTurno();
     }//GEN-LAST:event_jButtonLanzarActionPerformed
 
@@ -236,6 +242,8 @@ public class Tablero extends javax.swing.JFrame {
         if(this.turno>max){
             this.turno=0;
         }
+        
+        //System.out.print("");
         for (int i = 0; i < jugadores.size(); i++) {
             if(this.jugadores.get(i).getTurno()==this.turno){                    
                     jButtonLanzar.setEnabled(true);
@@ -247,13 +255,16 @@ public class Tablero extends javax.swing.JFrame {
     
     
     public void actualizarEnemigos(int movimiento, int id){
+       
         for (int i = 0; i < jugadores.size(); i++) {
             if(this.jugadores.get(i).getTurno()==id){
-                    moverFicha(this.jugadores.get(i), movimiento);
-                    actualizarTurno();
+                    if(movimiento!=0) 
+                        moverFicha(this.jugadores.get(i), movimiento);
                     break;
             }
+            
         }
+        actualizarTurno();
     }
     
     
@@ -276,11 +287,11 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     
-    private void actualizarInfoJugador(Personajes jugador){
+    private void actualizarJugadorInmovil(Personajes jugador){
     
         if(jugador.getCantInmovil()>1){
-            jugador.setCantInmovil(1);
-            TxtDados.setText("X1");
+            jugador.setCantInmovil((jugador.getCantInmovil()-1));
+            TxtDados.setText("X"+jugador.getCantInmovil());
         }else{
             jugador.setCantInmovil(0);
             jugador.setInmovil(false);
@@ -288,6 +299,8 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     private void moverFicha(Personajes jugador, int resultadoDados){
+       
+        
         int avanzar=jugador.getCasillaActual()+resultadoDados;
         Point ptoCasilla=null;
 
@@ -297,29 +310,76 @@ public class Tablero extends javax.swing.JFrame {
         jugador.setCasillaActual(avanzar);
         
         if(jugador.getCasillaActual()==28)jugador.setCasillaActual(27);
-        System.out.println(jugador.getCasillaActual());
+        //System.out.println(jugador.getCasillaActual());
        
         
-        JButton botonFicha = jugador.getRefButton();
 
+        jugador=verificarCasilla(buttonArray[jugador.getCasillaActual()],jugador); 
+        
+        JButton botonFicha = jugador.getRefButton();        
         ptoCasilla=buttonArray[jugador.getCasillaActual()].getLocation();
         botonFicha.setLocation(ptoCasilla.x, ptoCasilla.y+jugador.getTurno()*20);
-        System.out.println(buttonArray[jugador.getCasillaActual()].getText());
+       
+        //System.out.println(buttonArray[jugador.getCasillaActual()].getText());
 
     }
+    
+
         
     
-    //getter setter
+    
+    private Personajes verificarCasilla(JButton casilla,Personajes jugador){
+        
+        if(casilla.getText().equals("CARCEL")){
+            jugador.setInmovil(true);
+            jugador.setCantInmovil(2);
+            return jugador;
+        }
+        if(casilla.getText().equals("ESTRELLA")){
+            this.setRepite(true);
+            return jugador;
+        }
+        
+        
+        if(casilla.getText().equals("TUBO1")){
+            jugador.setCasillaActual(encontrarTubo("TUBO2"));
+            return jugador;
+        }
+        
+        if(casilla.getText().equals("TUBO2")){
+            jugador.setCasillaActual(encontrarTubo("TUBO3"));
+            return jugador;
+        }
+        
+        if(casilla.getText().equals("TUBO3")){
+            jugador.setCasillaActual(encontrarTubo("TUBO1"));
+            return jugador;
+
+        }
+        
+        if(casilla.getText().equals("FINISH")){
+            this.finish=true;
+        }
+            
+        return jugador;
+    }
+    
+    private int encontrarTubo(String tubo){
+    
+        for (int i = 0; i < buttonArray.length; i++) {
+            if(buttonArray[i].getText().equals(tubo)) 
+                return i;
+        }
+        return 0;
+    }
+    
+    
+    
+    
+    
+    //GETTER
     public int getId(){
         return this.id;
-    }
-    
-    public void setTurno(String nombre){
-        TxtTurno.setText(nombre);
-    }
-    public void setTxtTurno(String nombre){
-    
-        TxtTurno.setText(nombre);
     }
 
     public int getTurno() {
@@ -336,10 +396,42 @@ public class Tablero extends javax.swing.JFrame {
     
     public boolean getBtnLanzar(){
         return jButtonLanzar.isEnabled();
+    }    
+    
+    public boolean haGanado(){
+    return this.finish;
+    }
+
+    public boolean getRepite() {
+        return repite;
+    }
+
+       
+    
+    //SETTER
+    public void setRepite(boolean repite) {
+        this.repite = repite;
+    }
+    public void activarBtnLanzar(){
+        this.jButtonLanzar.setVisible(true);
+    }
+   
+    public void setTxtTurno(String nombre){
+    
+        TxtTurno.setText(nombre);
     }
     
+    public void setTurnoTxt(String nombre){
+        TxtTurno.setText(nombre);
+    }
     
-    
+    public void setTurno(int turno){
+        this.turno=turno;
+    }
+
+    public void setResultadoDados(int resultadoDados) {
+        this.resultadoDados = resultadoDados;
+    }
     
     
     /**

@@ -105,24 +105,64 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
              
              switch(opcion)
              {
-                case 0:
+                case 0:{
                         this.puesto=entrada.readInt();
                         break;
-                 
+                }
 
-                case 1:
+                case 1:{
+                    
+                    System.out.println("movimeintos recibidos...");
                     int movimiento = entrada.readInt();//lee la cantidad de movimientos 
                     int id= entrada.readInt();//lee el identificador del personaje
+                    
                     for (int i = 0; i < enemigos.size(); i++) {
-                        //System.out.println("enemigo encontrado...");
+                        System.out.println("enemigo "+enemigos.get(i).getNameUser()+" encontrado...");
                         enemigos.get(i).salida.writeInt(4);
                         enemigos.get(i).salida.writeInt(movimiento);
                         enemigos.get(i).salida.writeInt(id);
-                        enemigos.get(i).salida.writeInt(3);
-                        
+                    }
+                    break;
+                }
+                    
+                case 2:{
+                    String ganador = entrada.readUTF();//lee el identificador del personaje
+                    
+                    for (int i = 0; i < enemigos.size(); i++) {
+                        enemigos.get(i).salida.writeInt(5);
+                        enemigos.get(i).salida.writeUTF(ganador);
                     }
                     
                     break;
+                
+                }
+
+                case 3:{
+                    for (int i = 0; i < enemigos.size(); i++) {
+                        enemigos.get(i).salida.writeInt(3);
+                        enemigos.get(i).salida.writeInt(enemigos.get(i).getPersonaje().getTurno());
+                    }
+                    break;
+                
+                }
+                case 4:{
+                    
+                    int turno= entrada.readInt();
+                    for (int i = 0; i < enemigos.size(); i++) {
+                        enemigos.get(i).salida.writeInt(6);
+                        enemigos.get(i).salida.writeInt(turno);
+                    }
+//                    salida.writeInt(6);
+//                    salida.writeInt(turno);
+                break;
+                }
+               
+                case 5:{
+                    salida.writeInt(3);
+                    salida.writeInt(this.personaje.getTurno());
+                break;
+                }
+
              }
              
              

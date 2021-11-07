@@ -84,7 +84,7 @@ public void runServer(){
 
             ventana.mostrar("partida iniciada");
            
-            // proceso de orden de turnos
+//            // proceso de orden de turnos
             int ordenT=r.nextInt(2);
             if(ordenT==0){
             
@@ -113,6 +113,7 @@ public void runServer(){
              for (int i = 0; i < user.size(); i++) {
                  user.get(i).tablero(casillas);
                  user.get(i).salida.writeInt(3);
+                 user.get(i).salida.writeInt(user.get(i).getPersonaje().getTurno());
             }
              
              
@@ -134,6 +135,8 @@ public void runServer(){
             disponibles.add(i);
         }
     }
+    
+    
     private void cargarCasillas(){
         for (int i = 0; i < 9; i++) {
             for(int j=0;j<2;j++){

@@ -9,16 +9,17 @@ import javax.swing.JButton;
  * @author chave
  */
 
-public class Personajes implements Serializable{
-        boolean inmovil;
-        String nombre;
+public  class Personajes implements Serializable{
+        private boolean inmovil,repite;
+        private String nombre;
         private JButton refButton;
-        int numero,casilla,turno,cantInmovil;
-        ImageIcon imagen;
+        private int numero,casilla,turno,cantInmovil;
+        private ImageIcon imagen;
         
     
     public Personajes(int numero,String nombre){
         inmovil=false;
+        repite=false;
         this.nombre=nombre;
         this.numero=numero;// ver en que utilizarlo 
         this.casilla=0;
@@ -31,7 +32,7 @@ public class Personajes implements Serializable{
     
     //metodos
     
-     public void avanzarCasillaActual(int avance) {
+    public void avanzarCasillaActual(int avance) {
         this.casilla += avance;
     }  
     
@@ -53,7 +54,7 @@ public class Personajes implements Serializable{
     }
 
     public int getTurno() {
-        return turno;
+        return this.turno;
     }
      public int getCasillaActual() {
         return casilla;
@@ -70,12 +71,19 @@ public class Personajes implements Serializable{
     public int getCantInmovil() {
         return cantInmovil;
     }
+
+    public boolean getRepite() {
+        return repite;
+    }
     
     
     
     
-//setter
-    
+//SETTERS
+    public void setRepite(boolean repite) {
+        this.repite = repite;
+    }
+
     public void setCantInmovil(int cantInmovil) {
         this.cantInmovil = cantInmovil;
     }
