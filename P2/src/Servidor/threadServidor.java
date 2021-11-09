@@ -23,11 +23,8 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
     public DataOutputStream salida=null;   //Para enviar comunicacion	
     private ObjectOutputStream salidaObj = null;
     private ObjectInputStream entradaObj = null;
-    
     private Personajes personaje=null; //PARA LA INFORMACION DEL CLIENTE
-    
 
-     
     String nameUser;    //Para el nombre del usuario de esta conexion
     
     private ServidorMarioParty servidor;   // referencia al servidor
@@ -115,12 +112,13 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
                     System.out.println("movimeintos recibidos...");
                     int movimiento = entrada.readInt();//lee la cantidad de movimientos 
                     int id= entrada.readInt();//lee el identificador del personaje
-                    
+                    int tubo=entrada.readInt();
                     for (int i = 0; i < enemigos.size(); i++) {
                         System.out.println("enemigo "+enemigos.get(i).getNameUser()+" encontrado...");
                         enemigos.get(i).salida.writeInt(4);
                         enemigos.get(i).salida.writeInt(movimiento);
                         enemigos.get(i).salida.writeInt(id);
+                        enemigos.get(i).salida.writeInt(tubo);
                     }
                     break;
                 }
@@ -152,8 +150,7 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
                         enemigos.get(i).salida.writeInt(6);
                         enemigos.get(i).salida.writeInt(turno);
                     }
-//                    salida.writeInt(6);
-//                    salida.writeInt(turno);
+
                 break;
                 }
                
@@ -161,6 +158,33 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
                     salida.writeInt(3);
                     salida.writeInt(this.personaje.getTurno());
                 break;
+                }
+                
+                case 6:{
+                    int turno= entrada.readInt();
+                    int movimientos=entrada.readInt();
+                    
+                    for (int i = 0; i < enemigos.size(); i++) {
+                        enemigos.get(i).salida.writeInt(8);
+                        enemigos.get(i).salida.writeInt(turno);
+                        enemigos.get(i).salida.writeInt(movimientos);
+
+                    }
+                    
+                    break;
+                }
+                
+                case 7:{
+                    int turno= entrada.readInt();
+                    for (int i = 0; i < enemigos.size(); i++) {
+                        if(enemigos.get(i).getPersonaje().getTurno()==turno){
+                            enemigos.get(i).salida.writeInt(7);
+                            enemigos.get(i).salida.writeInt(turno);
+                            break;
+                        }
+                    }
+                    
+                    break;
                 }
 
              }

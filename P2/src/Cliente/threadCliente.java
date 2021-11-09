@@ -22,6 +22,7 @@ public class threadCliente extends Thread{
    //solo de lectura
      private DataInputStream entrada;
      private ObjectInputStream entradaObj;
+     private ObjectOutputStream salidaObj;
      private DataOutputStream salida;
      private Juego vcli; //referencia a cliente
      private TiroDadosInicio inicio;
@@ -34,11 +35,12 @@ public class threadCliente extends Thread{
      
      
    public threadCliente ( DataInputStream entrada,ObjectInputStream entradaObj
-           ,DataOutputStream salida,Juego vcli,String name) throws IOException
+           ,DataOutputStream salida,ObjectOutputStream salidaObj,Juego vcli,String name) throws IOException
    {
       this.entradaObj=entradaObj;
       this.entrada=entrada;
       this.salida=salida;
+      this.salidaObj=salidaObj;
       this.vcli=vcli;
       this.name=name;
       this.num=-1;
@@ -132,29 +134,91 @@ public class threadCliente extends Thread{
                                     JOptionPane.showMessageDialog(null, "GANADOR: "+name, "GANADOR DEL JUEGO", 1);
                                     tablero.setVisible(false);  
                                 }
-                               
-                               
-                                 //poner if de si es un juego
+                            
+//                                 poner if de si es un juego
 
-                                actualizarJuego();
+                                if(tablero.getCola()==true){
+                                    
+                                    
+                                    System.out.println("ENTRE EN COLA.......");
+                                    
+                                    while(tablero.getCola()){
+                                        System.out.print("");
+                                    }
+                                    
+                                    actualizarJuego();
+                                    salida.writeInt(3);
+                                    break;
+                                } 
+                                                                     
+                                if(tablero.getFuego()==true){
+                                    
+                                    System.out.println("ENTRE A FUEGO");                                    
+                                    while(tablero.getEnemigo()==null){
+                                        System.out.print("");
+                                       
+                                    }
+                                    if(tablero.getEnemigo()!=null){
+                                        salida.writeInt(6);
+                                        salida.writeInt(tablero.getEnemigo().getTurno());
+                                        System.out.println(tablero.getEnemigo().getNum()+" "+tablero.getEnemigo().getName());
+                                        salida.writeInt(tablero.getEnemigo().getNum());    
+                                    }
+                                    
+                                    tablero.setFuego(false);
+                                    tablero.setEnemigo(null);
+                                    actualizarJuego();
+                                    salida.writeInt(3);
+                                    break;
+                                }  
 
-                                if(tablero.getRepite()){
-                                    System.out.println("repito turno... "+name);
-                                    tablero.setRepite(false);
-                                  
-                                    int turno=acceso;//tablero.getTurno();
-                                    //if(turno==-1)turno=0;
-                                    System.out.println(turno+" ,"+tablero.getId());
+                                
+                                
+                                if(tablero.getHielo()==true){
+                                    System.out.println("ENTRE A HIELO");                                    
+                                    while(tablero.getEnemigo()==null){
+                                        System.out.print("");
+                                       
+                                    }
                                     
-                                    salida.writeInt(4);
-                                    salida.writeInt(turno);
-                                    actualizarme(turno);
-                                    salida.writeInt(5);
-                                    
+                                    if(tablero.getEnemigo()!=null){
+                                        salida.writeInt(7);
+                                        salida.writeInt(tablero.getEnemigo().getTurno());
+                                    }
+                                    tablero.setEnemigo(null);
+                                    tablero.setHielo(false);
+                                    actualizarJuego();
+                                    salida.writeInt(3);
                                     break;
                                 }
                                 
                                 
+                                if(tablero.getTubo()!=0){
+                                    actualizarJuego();
+                                    tablero.setTubo(0);
+                                    salida.writeInt(3);
+                                    break;
+                                }
+//                                
+                                if(tablero.getRepite()){
+                                    
+                                    actualizarJuego();
+                                    System.out.println("repito turno... "+name);
+                                    tablero.setRepite(false);
+                                    int turno=acceso;//tablero.getTurno();
+//                                    if(turno==-1)turno=0;
+                                    System.out.println(turno+" ,"+tablero.getId());
+                                    salida.writeInt(4);
+                                    salida.writeInt(turno);
+                                    
+                                    actualizarme(turno);
+                                    salida.writeInt(5);
+                                    break;
+                                }
+//                             
+
+                                
+                                actualizarJuego();
                                 salida.writeInt(3);
                                 break;
                         }catch (IOException ex){         
@@ -165,16 +229,14 @@ public class threadCliente extends Thread{
 
                     break;
                 }
-                 
-                 
-                 
-                 
+
                 case 4:
                 {
                     System.out.println("actualizando enemigo...");
                     int movimiento=entrada.readInt();
-                    int id=entrada.readInt();   
-                    tablero.actualizarEnemigos(movimiento,id);
+                    int id=entrada.readInt();
+                    int tubo=entrada.readInt();
+                    tablero.actualizarEnemigos(movimiento,id,tubo);
                     break;
                 }
                 
@@ -198,6 +260,38 @@ public class threadCliente extends Thread{
                 break;
                 }
                 
+                case 7:
+                {
+                    int turno=entrada.readInt();
+                    int cantidad=0;
+                    for (int i = 0; i < jugadores.size(); i++) {
+                        if(jugadores.get(i).getTurno()==turno){
+                            jugadores.get(i).setInmovil(true);
+                            cantidad=jugadores.get(i).getCantInmovil();
+                            jugadores.get(i).setCantInmovil(cantidad+2);
+                            break;
+                        }
+                        
+                    }
+                    break;
+                }
+                case 8:
+                {
+                    int turno=entrada.readInt();
+                    int movimientos=entrada.readInt();
+                    for (int i = 0; i < jugadores.size(); i++) {
+                        if(jugadores.get(i).getTurno()==turno){
+                            System.out.println(jugadores.get(i).getCasillaActual());
+                            tablero.moverFicha(jugadores.get(i), movimientos, 0);
+                            System.out.println(jugadores.get(i).getCasillaActual());
+                            break;
+                        }
+                        
+                    }
+                    
+                    break;
+                }
+                
             }
          }
          catch (IOException e){
@@ -218,6 +312,7 @@ public class threadCliente extends Thread{
         }
         tablero.setRepite(false);
         System.out.println("SALI "+tablero.getTurno());
+        
        
     }
     
@@ -228,6 +323,7 @@ public class threadCliente extends Thread{
             salida.writeInt(tablero.getResultadoDados());//LE ENVIA LA CANTIDAD DE CASIILAS QUE TIENE QUE MOVER
             System.out.println("resultado enviada");
             salida.writeInt(tablero.getId());//el identificador del jugador
+            salida.writeInt(tablero.getTubo());
             
             System.out.println("informacion de turno enviada");
          

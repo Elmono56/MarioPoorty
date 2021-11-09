@@ -21,7 +21,7 @@ public  class Personajes implements Serializable{
         inmovil=false;
         repite=false;
         this.nombre=nombre;
-        this.numero=numero;// ver en que utilizarlo 
+        this.numero=numero;// casillas para retorcer o adelantar en fuego y hielo
         this.casilla=0;
         this.turno=0;
         this.cantInmovil=0;
@@ -57,23 +57,23 @@ public  class Personajes implements Serializable{
         return this.turno;
     }
      public int getCasillaActual() {
-        return casilla;
+        return this.casilla;
     }
 
     public JButton getRefButton() {
-        return refButton;
+        return this.refButton;
     }
 
     public boolean getInmovil() {
-        return inmovil;
+        return this.inmovil;
     }
 
     public int getCantInmovil() {
-        return cantInmovil;
+        return this.cantInmovil;
     }
 
     public boolean getRepite() {
-        return repite;
+        return this.repite;
     }
     
     
@@ -103,6 +103,10 @@ public  class Personajes implements Serializable{
 
     public void setCasillaActual(int casillaActual) {
         this.casilla= casillaActual;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
     
 

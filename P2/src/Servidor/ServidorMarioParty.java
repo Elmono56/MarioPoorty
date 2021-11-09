@@ -85,23 +85,23 @@ public void runServer(){
             ventana.mostrar("partida iniciada");
            
 //            // proceso de orden de turnos
-            int ordenT=r.nextInt(2);
-            if(ordenT==0){
-            
-                ordenDados(ordenT);
-                Collections.sort(user);
-                Collections.copy(user, user);
-                Collections.reverse(user);
-                
-
-            }else{
-                int corte=r.nextInt(1000)+1;
-                ventana.mostrar("el corte es: "+corte);
-                ordenNum(ordenT,corte);
-                Collections.sort(user);
-                Collections.copy(user, user);
-            }
-            
+//            int ordenT=r.nextInt(2);
+//            if(ordenT==0){
+//            
+//                ordenDados(ordenT);
+//                Collections.sort(user);
+//                Collections.copy(user, user);
+//                Collections.reverse(user);
+//                
+//
+//            }else{
+//                int corte=r.nextInt(1000)+1;
+//                ventana.mostrar("el corte es: "+corte);
+//                ordenNum(ordenT,corte);
+//                Collections.sort(user);
+//                Collections.copy(user, user);
+//            }
+//            
             //ya user esta ordenada por turnos 
             ventana.mostrar("el nuevo orden es: ");
             for (int i = 0; i < user.size(); i++) {
@@ -163,16 +163,16 @@ public void runServer(){
     private String getJuego(int opcion){
         
         switch (opcion){
-            case 0:return "GATO";
-            case 1:return "SOPA";
-            case 2:return "PATH";
-            case 3:return "MEMORY";
-            case 4:return "CAT";
-            case 5:return "BOMBER";
-            case 6:return "WHO?";
-            case 7:return "COINS";
-            case 8:return "CARDS";
-            case 9:return "CARCEL";
+            case 0:return  "GATO";
+            case 1:return  "SOPA";
+            case 2:return  "PATH";
+            case 3:return  "MEMORY";
+            case 4:return  "CAT";
+            case 5:return  "BOMBER";
+            case 6:return  "WHO?";
+            case 7:return  "COINS";
+            case 8:return  "CARDS";
+            case 9:return  "CARCEL";
             case 10:return "TUBO";//CORREGIR ESTE CODIGO
             case 11:return "TUBO";
             case 12:return "TUBO";

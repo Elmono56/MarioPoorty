@@ -116,7 +116,7 @@ public class Cliente {
       // a la ventana gato puede colocar en la pantalla cualquier cosa, como las
       //imagenes de X o O, llamar a metodo marcar, colocar el nombre de enemigo
       // o el suyo propio
-      new threadCliente(entrada,entradaObj,salida, ventanaCliente,nomCliente).start();
+      new threadCliente(entrada,entradaObj,salida, salidaObj,ventanaCliente,nomCliente).start();
    }
    
    //GETTET AND SETTER

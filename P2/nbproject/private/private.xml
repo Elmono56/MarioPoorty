@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/Users/chave/Documents/NetBeansProjects/MarioPoorty/P2/src/Cliente/threadCliente.java</file>
             <file>file:/C:/Users/chave/Documents/NetBeansProjects/MarioPoorty/P2/src/Servidor/ServidorMarioParty.java</file>
+            <file>file:/C:/Users/chave/Documents/NetBeansProjects/MarioPoorty/P2/src/Personajes/Personajes.java</file>
             <file>file:/C:/Users/chave/Documents/NetBeansProjects/MarioPoorty/P2/src/Servidor/threadServidor.java</file>
+            <file>file:/C:/Users/chave/Documents/NetBeansProjects/MarioPoorty/P2/src/Juegos/regresarJugador.java</file>
             <file>file:/C:/Users/chave/Documents/NetBeansProjects/MarioPoorty/P2/src/Juegos/Tablero.java</file>
         </group>
     </open-files>
