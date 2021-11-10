@@ -26,6 +26,7 @@ public class CollectCoins extends javax.swing.JFrame {
     JButton[][] botones = new JButton[DIMENSIONES][DIMENSIONES];
     int[][] valoresM = new int[DIMENSIONES][DIMENSIONES];
     ImageIcon iconoM = new ImageIcon(getClass().getResource("/Imagenes/moneda2.PNG"));
+    boolean activo = true;
     
     public CollectCoins() {
         initComponents();
@@ -92,6 +93,13 @@ public class CollectCoins extends javax.swing.JFrame {
         
     }
 
+    public boolean getActivo() {
+        return this.activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

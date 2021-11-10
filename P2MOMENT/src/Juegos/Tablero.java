@@ -27,7 +27,8 @@ public class Tablero extends javax.swing.JFrame {
     private Personajes enemigo =null;
     private boolean finish,repite,fuego,hielo,cola;
     private Personajes jugadorEnTurno=null;
-    
+    private boolean juego=false;
+    private String nombrejuego="";
    
     
     
@@ -277,6 +278,7 @@ public class Tablero extends javax.swing.JFrame {
     
     
     private boolean verificarDados(Personajes jugador,int dado1,int dado2){
+        /*
         if(dado1==6 && dado2==6){
             jugador.setInmovil(true);
             jugador.setCantInmovil(2);
@@ -291,6 +293,7 @@ public class Tablero extends javax.swing.JFrame {
             resultadoDados=0;
             return false;
         }
+        */
         return true;
     }
     
@@ -331,6 +334,16 @@ public class Tablero extends javax.swing.JFrame {
     
     
     private Personajes verificarCasilla(JButton casilla,Personajes jugador){
+        
+        if (casilla.getText().equals("GATO")){
+            
+            setJuego(true);
+            
+            setNombrejuego(casilla.getText());
+            
+            return jugador;
+        }
+        
         
         if(casilla.getText().equals("CARCEL")){
             jugador.setInmovil(true);
@@ -499,6 +512,23 @@ public class Tablero extends javax.swing.JFrame {
     public Personajes getEnemigo() {
         return this.enemigo;
     }
+
+    public boolean getJuego() {
+        return this.juego;
+    }
+
+    public void setJuego(boolean juego) {
+        this.juego = juego;
+    }
+
+    public String getNombrejuego() {
+        return this.nombrejuego;
+    }
+
+    public void setNombrejuego(String nombrejuego) {
+        this.nombrejuego = nombrejuego;
+    }
+    
     
     
     public boolean haGanado(){

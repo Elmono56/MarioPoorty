@@ -15,6 +15,7 @@ import java.util.Random;
  */
 public class JuegosFactory {
     
+    /*
     static enum Games{
         GATO,
         SOPALETRAS,
@@ -23,32 +24,17 @@ public class JuegosFactory {
         CATCHTHECAT,
         BOMBERMARIO,
         GUESSWHO,
-        COLLECTCOINS,
+        COINS,
         MARIOCARDS
     }
+    */
     
     
-    
-    public  static javax.swing.JFrame crearJuego(Games tipo){
+    public static javax.swing.JFrame crearJuego(String tipo){
         
         switch(tipo){
-            case GATO :{
-                //Random random = new Random();
-                /*
-                while (true){
-                    
-                    int casip2 = random.nextInt(listaPlayers.size());
-                    Personajes p2 = listaPlayers.get(casip2);
-                    
-                    if (p1!=p2){
-                        break;
-                    }
-                    
-                }
-                */
-                
-            }
-            case COLLECTCOINS: return new CollectCoins();
+            case "GATO" : return new JuegoGato();
+            //case "COINS": return new CollectCoins();
         }
         return null;
     }

@@ -4,10 +4,13 @@
  * and open the template in the editor.
  */
 package Cliente;
-import Personajes.Personajes;
-import Juegos.Tablero;
+import GamesFactory.CollectCoins;
+import GamesFactory.JuegoGato;
+import GamesFactory.JuegosFactory;
+import Personajes.*;
+import Juegos.*;
 import java.io.*;
-import Juegos.TiroDadosInicio;
+import Juegos.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -136,7 +139,18 @@ public class threadCliente extends Thread{
                                 }
                                 */
                             
-//                                 poner if de si es un juego
+                                if (tablero.getJuego()==true){
+                                    System.out.println("ENTRO A JUEGO");
+                                    System.out.println(tablero.getNombrejuego());
+                                    int turno = acceso;
+                                    
+                                    salida.writeInt(8);
+                                    salida.writeInt(turno);
+                                    salida.writeUTF(tablero.getNombrejuego());
+                                    tablero.setJuego(false);
+                                    //actualizarJuego();
+                                    break;
+                                }
 
                                 if(tablero.getCola()==true){
                                     
@@ -292,7 +306,77 @@ public class threadCliente extends Thread{
                     
                     break;
                 }
+                case 9:
+                {
+                    int turno=entrada.readInt();
+                    
+                    String nombrejuego=entrada.readUTF();
+                    System.out.println("ENTRANDO A JUEGO");
+                    
+                    String enemigo = "";
+                    //boolean auxiliar = false;
+                    
+                    if (nombrejuego.equals("GATO")){
+                        //while (auxiliar==false){
+                            salida.writeInt(9);
+                            salida.writeUTF(this.name);
+                            turno=entrada.readInt();
+                            for (int i = 0; i < jugadores.size(); i++) {
+                                if(jugadores.get(i).getTurno()==turno){ 
+                                    enemigo = jugadores.get(i).getName();
+                                    break;
+                                }
+                            }
+                            //auxiliar = entrada.readBoolean();
+                        //}
+                        
+                    }
+                    
+                    /*
+                    CollectCoins ventanajuego = (CollectCoins) JuegosFactory.crearJuego("COINS");
+                    
+                    ventanajuego.setVisible(true);
+                    */
+                    
+                   
+                    JuegoGato ventanajuego = (JuegoGato) JuegosFactory.crearJuego("GATO");
+                    ventanajuego.setVisible(true);
+                    ventanajuego.setAmigo(this.name);
+                    ventanajuego.setEnemigo(enemigo);
+                    ventanajuego.setNumeroJugador(1);
+                    ventanajuego.setTurnoJugador(1);
+                    //ventanajuego.setVisible(true);
+                    /*
+                    while(ventanajuego.haGanado()){
+                        if (ventanajuego.getColumnaA()!=-1 & ventanajuego.getFilaA()!=-1){
+                            salida.writeInt(ventanajuego.getColumnaA());
+                            salida.writeInt(ventanajuego.getFilaA());
+                            ventanajuego.setColumnaA(-1);
+                            ventanajuego.setFilaA(-1);
+                            
+                        }
+                        ventanajuego.marcar(entrada.readInt(), entrada.readInt());
+                    }
+                    */
+                    
+                    break;
+                }
                 
+                case 10:{
+                    
+                    String nombre = entrada.readUTF();
+                    
+                    JuegoGato ventanajuego = (JuegoGato) JuegosFactory.crearJuego("GATO");
+                    ventanajuego.setVisible(true);
+                    
+                    /*ventanajuego.setAmigo(this.name);
+                    ventanajuego.setEnemigo(nombre);
+                    ventanajuego.setNumeroJugador(2);
+                    ventanajuego.setTurnoJugador(1);*/
+                    
+                    break;
+                    
+                }
             }
          }
          catch (IOException e){

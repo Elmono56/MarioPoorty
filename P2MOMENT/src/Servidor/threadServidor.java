@@ -8,6 +8,7 @@ import Personajes.Personajes;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -192,20 +193,34 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
                     int turno = entrada.readInt();
                     
                     String juego = entrada.readUTF();
-                    
-                    for (int i = 0; i < enemigos.size(); i++) {
-                        if (enemigos.get(i).getPersonaje().getTurno()==turno){
-                            enemigos.get(i).salida.writeInt(9);
-                            enemigos.get(i).salida.writeInt(turno);
-                            enemigos.get(i).salida.writeUTF(juego);
-                            break;
-                        }
-                    }
+                    System.out.println("DATOS RECIBIDOS");
+                    salida.writeInt(9);
+                    salida.writeInt(turno);
+                    salida.writeUTF(juego);
                     break;
-                }
+                }  
+             
+             case 9:{
+                 
+                String nombre = entrada.readUTF();
                 
-
+                Random rant = new Random();
+                
+                int enemigo = rant.nextInt(enemigos.size());
+                
+                System.out.println(enemigos.get(enemigo).getName());
+                
+                salida.writeInt(enemigos.get(enemigo).getPersonaje().getTurno());
+             
+                enemigos.get(enemigo).salida.writeInt(10);
+                
+                enemigos.get(enemigo).salida.writeUTF(nombre);
+                
+                //salida.writeBoolean(true);
+                
+                break;
              }
+        }
              
              
              
