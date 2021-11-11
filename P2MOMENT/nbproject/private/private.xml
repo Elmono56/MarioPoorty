@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/hidal/Desktop/POO/MarioPoorty/P2MOMENT/src/Servidor/threadServidor.java</file>
+            <file>file:/C:/Users/hidal/Desktop/POO/MarioPoorty/P2MOMENT/src/Juegos/Tablero.java</file>
+            <file>file:/C:/Users/hidal/Desktop/POO/MarioPoorty/P2MOMENT/src/GamesFactory/JuegosFactory.java</file>
+            <file>file:/C:/Users/hidal/Desktop/POO/MarioPoorty/P2MOMENT/src/GamesFactory/JuegoGato.java</file>
+            <file>file:/C:/Users/hidal/Desktop/POO/MarioPoorty/P2MOMENT/src/Servidor/ServidorMarioParty.java</file>
+            <file>file:/C:/Users/hidal/Desktop/POO/MarioPoorty/P2MOMENT/src/Cliente/threadCliente.java</file>
+        </group>
     </open-files>
 </project-private>

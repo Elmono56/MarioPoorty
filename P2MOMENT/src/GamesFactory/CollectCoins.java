@@ -5,11 +5,14 @@
  */
 package GamesFactory;
 
+import MarioThreads.CronoThread;
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.lang.Math;
+import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,12 +30,25 @@ public class CollectCoins extends javax.swing.JFrame {
     int[][] valoresM = new int[DIMENSIONES][DIMENSIONES];
     ImageIcon iconoM = new ImageIcon(getClass().getResource("/Imagenes/moneda2.PNG"));
     boolean activo = true;
-    
+    CronoThread cronometro;
+        
     public CollectCoins() {
         initComponents();
         generarMonedas();
+        setCronometro();
+        this.cronometro.start();
     }
     
+    void setCronometro(){
+        int tiempos[]={30,45,60};
+        
+        Random rant = new Random();
+        
+        int indice = (int) rant.nextInt(3);
+        
+        this.cronometro = new CronoThread(this,tiempos[indice],0);
+        
+    }
     
     void generarMonedas(){
         for(int i=0;i<DIMENSIONES;i++)
@@ -100,6 +116,33 @@ public class CollectCoins extends javax.swing.JFrame {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
+    
+    boolean finJuego(){
+        
+        for(int i=0;i<DIMENSIONES;i++){
+            for(int j=0;j<DIMENSIONES;j++){
+                botones[i][j].setEnabled(false);
+            }
+        }
+        
+        int puntos = Integer.parseInt(txtPuntos.getText());
+        
+        return puntos>=0;
+        
+    }
+    
+    public void setTextToCrono(String newTempo){
+        txtCrono.setText(newTempo);
+        
+        if (this.cronometro.getIntSeconds()==0 & this.cronometro.getIntMinutes() == 0){
+            if(finJuego()){
+                JOptionPane.showMessageDialog(this, "GANASTE","FELICIDADES", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "PERDISTE","Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -114,6 +157,8 @@ public class CollectCoins extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblPuntos = new javax.swing.JLabel();
         txtPuntos = new javax.swing.JTextField();
+        txtCrono = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -135,22 +180,28 @@ public class CollectCoins extends javax.swing.JFrame {
         txtPuntos.setEditable(false);
         txtPuntos.setText("0");
 
+        txtCrono.setEditable(false);
+
+        jLabel1.setText("TIEMPO RESTANTE");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 463, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(129, 129, 129)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCrono))
+                .addGap(129, 129, 129))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,9 +209,13 @@ public class CollectCoins extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
-                .addComponent(lblPuntos)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPuntos)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCrono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28))
         );
 
@@ -207,8 +262,10 @@ public class CollectCoins extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblPuntos;
+    private javax.swing.JTextField txtCrono;
     private javax.swing.JTextField txtPuntos;
     // End of variables declaration//GEN-END:variables
 }

@@ -15,8 +15,8 @@ import java.util.Random;
  */
 public class JuegosFactory {
     
-    /*
-    static enum Games{
+    
+    public static enum Games{
         GATO,
         SOPALETRAS,
         MEMORYPATH,
@@ -27,14 +27,18 @@ public class JuegosFactory {
         COINS,
         MARIOCARDS
     }
-    */
     
     
-    public static javax.swing.JFrame crearJuego(String tipo){
+    
+    public static javax.swing.JFrame crearJuego(Games tipo){
         
         switch(tipo){
-            case "GATO" : return new JuegoGato();
-            //case "COINS": return new CollectCoins();
+            case GATO :{
+                return new JuegoGato();
+            }
+            case COINS: {
+                return new CollectCoins();
+            }
         }
         return null;
     }

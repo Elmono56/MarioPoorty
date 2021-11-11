@@ -14,6 +14,7 @@ import Juegos.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 
@@ -315,7 +316,7 @@ public class threadCliente extends Thread{
                     
                     String enemigo = "";
                     //boolean auxiliar = false;
-                    
+                    /*
                     if (nombrejuego.equals("GATO")){
                         //while (auxiliar==false){
                             salida.writeInt(9);
@@ -331,15 +332,17 @@ public class threadCliente extends Thread{
                         //}
                         
                     }
-                    
-                    /*
-                    CollectCoins ventanajuego = (CollectCoins) JuegosFactory.crearJuego("COINS");
-                    
-                    ventanajuego.setVisible(true);
                     */
                     
-                   
-                    JuegoGato ventanajuego = (JuegoGato) JuegosFactory.crearJuego("GATO");
+                    JFrame ventanajuego = new JFrame();
+                    
+                    ventanajuego = JuegosFactory.crearJuego(JuegosFactory.Games.COINS);
+                    
+                    ventanajuego.setVisible(true);
+                    
+                    
+                   /*
+                    JuegoGato ventanajuego = (JuegoGato) JuegosFactory.crearJuego(JuegosFactory.Games.COINS);
                     ventanajuego.setVisible(true);
                     ventanajuego.setAmigo(this.name);
                     ventanajuego.setEnemigo(enemigo);
@@ -366,7 +369,7 @@ public class threadCliente extends Thread{
                     
                     String nombre = entrada.readUTF();
                     
-                    JuegoGato ventanajuego = (JuegoGato) JuegosFactory.crearJuego("GATO");
+                    JuegoGato ventanajuego = (JuegoGato) JuegosFactory.crearJuego(JuegosFactory.Games.GATO);
                     ventanajuego.setVisible(true);
                     
                     /*ventanajuego.setAmigo(this.name);
