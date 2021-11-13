@@ -39,6 +39,9 @@ public class JuegosFactory {
             case COINS: {
                 return new CollectCoins();
             }
+            case GUESSWHO:{
+                return new GuessWho();
+            }
         }
         return null;
     }

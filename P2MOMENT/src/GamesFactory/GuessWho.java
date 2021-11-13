@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,6 +29,7 @@ public class GuessWho extends javax.swing.JFrame {
     JButton[] opciones = new JButton[CANTBOTONES];
     int[][] valoresM = new int[DIMENSIONES][DIMENSIONES];
     ImageIcon iconoM = new ImageIcon(getClass().getResource("/Imagenes/question4.JPG"));
+    int indicef = 0;
     
     
     
@@ -51,6 +53,7 @@ public class GuessWho extends javax.swing.JFrame {
     
     public GuessWho() {
         initComponents();
+        setFoto();
         generartablero();
         generarbotones();
         generarIntentos();
@@ -68,7 +71,7 @@ public class GuessWho extends javax.swing.JFrame {
                 //añade al panel el boton;
                 jPFoto.add(botones[i][j]);
                 // coloca dimensiones y localidad
-                botones[i][j].setBounds(5+62*i, 5+62*j, 60, 60);
+                botones[i][j].setBounds(5+62*i, 5+62*j, 56, 56); //60,60
                 // coloca el comand como i , j 
                 botones[i][j].setActionCommand(i+","+j);//i+","+j
                 
@@ -103,7 +106,7 @@ public class GuessWho extends javax.swing.JFrame {
             opciones[i].addMouseListener(new MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
 
-                setTransparente(evt);
+                acertar(evt);
 
             }
             });
@@ -187,9 +190,15 @@ public class GuessWho extends javax.swing.JFrame {
             int columna = Integer.parseInt(identificadorBoton.substring(0,identificadorBoton.indexOf(",")));
             int fila = Integer.parseInt(identificadorBoton.substring(1+identificadorBoton.indexOf(",")));
 
-            botones[columna][fila].setEnabled(false);
-
-            botones[columna][fila].setBackground(null);
+            botones[columna][fila].disable();
+            
+            botones[columna][fila].setIcon(null);
+            
+            botones[columna][fila].setOpaque(false);
+            
+            botones[columna][fila].setContentAreaFilled(false);
+            
+            botones[columna][fila].setBorderPainted(false);
             
             //hay que remover la foto del boton
             
@@ -239,14 +248,95 @@ public class GuessWho extends javax.swing.JFrame {
     */
     
     
+    void setFoto(){
+        
+        Random rant = new Random();
+        
+        indicef = (int) rant.nextInt(CANTBOTONES) + 1;
+        
+        switch(indicef){
+            
+            case 0:{
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/mario.JPG")));
+                break;
+            }
+            case 1:{
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/luigi.PNG")));
+                break;
+            }
+            case 2:{
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/peach.PNG")));
+                break;
+            }
+            case 3:{
+                //jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/peach.PNG"))); //fly red turttle
+                break;
+            }
+            case 4:{
+                //jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/peach.PNG"))); //boo
+                break;
+            }
+            case 5:{
+                //jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/peach.PNG"))); //king boo
+                break;
+            }
+            case 6:{
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/toad.JPG")));
+                break;
+            }
+            case 7:{
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/bowser.JPG")));
+                break;
+            }
+            case 8:{
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/Yoshi.PNG")));
+                break;
+            }
+            case 9:{
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/koopa.PNG")));
+                break;
+            }
+            case 10:{
+                //jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/peach.PNG"))); //goombas
+                break;
+            }
+            case 11:{
+                //jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/peach.PNG"))); //floruga
+                break;
+            }
+            case 12:{
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/miniKong.PNG")));
+                break;
+            }
+            case 13:{
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/skeleton.JPG")));
+                break;
+            }
+            case 14:{
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/wario.JPG")));
+                break;
+            }
+        }   
+    }
     
     
     
-    
-    
-    
-    
-    
+    void acertar(java.awt.event.MouseEvent evt){
+        
+        JButton botonTemp = (JButton)evt.getComponent();
+        String identificadorBoton = botonTemp.getActionCommand();
+        int fila = Integer.parseInt(identificadorBoton.substring(1+identificadorBoton.indexOf(",")));
+        
+        if (fila == indicef){
+            JOptionPane.showMessageDialog(this, "GANASTE","FELICIDADES", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "PERDISTE","Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+        
+    }
     
     
     
@@ -269,22 +359,12 @@ public class GuessWho extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPFoto = new javax.swing.JPanel();
         jPBotones = new javax.swing.JPanel();
         lblIntentos = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPFoto = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout jPFotoLayout = new javax.swing.GroupLayout(jPFoto);
-        jPFoto.setLayout(jPFotoLayout);
-        jPFotoLayout.setHorizontalGroup(
-            jPFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 628, Short.MAX_VALUE)
-        );
-        jPFotoLayout.setVerticalGroup(
-            jPFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 628, Short.MAX_VALUE)
-        );
 
         jPBotones.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -305,8 +385,10 @@ public class GuessWho extends javax.swing.JFrame {
             .addGroup(jPBotonesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblIntentos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(592, Short.MAX_VALUE))
         );
+
+        jScrollPane1.setViewportView(jPFoto);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -314,7 +396,7 @@ public class GuessWho extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -324,8 +406,8 @@ public class GuessWho extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -369,7 +451,8 @@ public class GuessWho extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPBotones;
-    private javax.swing.JPanel jPFoto;
+    private javax.swing.JTextPane jPFoto;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblIntentos;
     // End of variables declaration//GEN-END:variables
 }
