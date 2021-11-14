@@ -7,6 +7,8 @@ package Cliente;
 import GamesFactory.CollectCoins;
 import GamesFactory.JuegoGato;
 import GamesFactory.JuegosFactory;
+import GamesFactory.MemoryPath;
+//import GamesFactory.MemoryPath;
 import Personajes.*;
 import Juegos.*;
 import java.io.*;
@@ -31,7 +33,8 @@ public class threadCliente extends Thread{
      private Juego vcli; //referencia a cliente
      private TiroDadosInicio inicio;
      private String name;
-     private int num;
+     private int num,acceso;
+     private boolean juegoActivo,resultado;
      ArrayList<Personajes> jugadores;
      ArrayList<String> infoCasillas;
      Tablero tablero=null;
@@ -39,15 +42,16 @@ public class threadCliente extends Thread{
      
      
    public threadCliente ( DataInputStream entrada,ObjectInputStream entradaObj
-           ,DataOutputStream salida,ObjectOutputStream salidaObj,Juego vcli,String name) throws IOException
+           ,DataOutputStream salida,Juego vcli,String name) throws IOException
    {
       this.entradaObj=entradaObj;
       this.entrada=entrada;
       this.salida=salida;
-      this.salidaObj=salidaObj;
       this.vcli=vcli;
       this.name=name;
       this.num=-1;
+      this.juegoActivo=false;
+      this.resultado=false;
    }
    
    public void run()
@@ -89,12 +93,18 @@ public class threadCliente extends Thread{
                     
                 case 1:
                 {
-                    this.num=Integer.parseInt(JOptionPane.showInputDialog(null,"Introducir un numero entre 1-1000 :",name,1));
-                    //NOTA: agregar las validaciones de que sea numero y que este entre el rango
-                   
-                    while(this.num==-1){
-                    }
-                    System.out.println("mande mi puesto... "+this.num);
+                    String op;
+                    while(true){
+                    op=(JOptionPane.showInputDialog(null,"Introducir un numero entre 1-1000 :",name,1));                 
+                
+                        if(isDigit(op)){
+                            this.num=Integer.parseInt(op);
+                            if(this.num>0 && num<1001)break;
+                        }
+                        JOptionPane.showMessageDialog(null, "POR FAVOR INGRESE UN NUMERO, ENTRE 1 Y 1000");
+                    } 
+                    
+                    //System.out.println("mande mi puesto... "+this.num);
                     salida.writeInt(0);
                     salida.writeInt(this.num);
                     break;
@@ -115,11 +125,11 @@ public class threadCliente extends Thread{
                  }
                 case 3:
                  {  
-                    int acceso=entrada.readInt();
-                    if(tablero.getTurno()==acceso){
+                    this.acceso=entrada.readInt();
+                    if(tablero.getTurno()==this.acceso){
                         tablero.setResultadoDados(0);
                         
-                         System.out.println("puedo tirar "+name);
+                         //System.out.println("puedo tirar "+name);
                          
                          while(tablero.getBtnLanzar()==true){                            
                              System.out.print("");//no eliminar porque no funciona el codigo 
@@ -141,70 +151,28 @@ public class threadCliente extends Thread{
                                 */
                             
                                 if (tablero.getJuego()==true){
-                                    System.out.println("ENTRO A JUEGO");
-                                    System.out.println(tablero.getNombrejuego());
+                             
+                                    //System.out.println("ENTRO A JUEGO");
                                     int turno = acceso;
-                                    
-                                    salida.writeInt(8);
+                                    salida.writeInt(8);//case de juegos 
                                     salida.writeInt(turno);
                                     salida.writeUTF(tablero.getNombrejuego());
                                     tablero.setJuego(false);
-                                    //actualizarJuego();
                                     break;
                                 }
 
                                 if(tablero.getCola()==true){
-                                    
-                                    
-                                    System.out.println("ENTRE EN COLA.......");
-                                    
-                                    while(tablero.getCola()){
-                                        System.out.print("");
-                                    }
-                                    
-                                    actualizarJuego();
-                                    salida.writeInt(3);
+                                    abrirCola();
                                     break;
                                 } 
                                                                      
                                 if(tablero.getFuego()==true){
-                                    
-                                    System.out.println("ENTRE A FUEGO");                                    
-                                    while(tablero.getEnemigo()==null){
-                                        System.out.print("");
-                                       
-                                    }
-                                    if(tablero.getEnemigo()!=null){
-                                        salida.writeInt(6);
-                                        salida.writeInt(tablero.getEnemigo().getTurno());
-                                        System.out.println(tablero.getEnemigo().getNum()+" "+tablero.getEnemigo().getName());
-                                        salida.writeInt(tablero.getEnemigo().getNum());    
-                                    }
-                                    
-                                    tablero.setFuego(false);
-                                    tablero.setEnemigo(null);
-                                    actualizarJuego();
-                                    salida.writeInt(3);
+                                    abrirFuego();
                                     break;
                                 }  
 
-                                
-                                
                                 if(tablero.getHielo()==true){
-                                    System.out.println("ENTRE A HIELO");                                    
-                                    while(tablero.getEnemigo()==null){
-                                        System.out.print("");
-                                       
-                                    }
-                                    
-                                    if(tablero.getEnemigo()!=null){
-                                        salida.writeInt(7);
-                                        salida.writeInt(tablero.getEnemigo().getTurno());
-                                    }
-                                    tablero.setEnemigo(null);
-                                    tablero.setHielo(false);
-                                    actualizarJuego();
-                                    salida.writeInt(3);
+                                    abrirHielo();
                                     break;
                                 }
                                 
@@ -214,28 +182,22 @@ public class threadCliente extends Thread{
                                     tablero.setTubo(0);
                                     salida.writeInt(3);
                                     break;
-                                }
-//                                
+                                }                                
                                 if(tablero.getRepite()){
                                     
                                     actualizarJuego();
                                     System.out.println("repito turno... "+name);
                                     tablero.setRepite(false);
-                                    int turno=acceso;//tablero.getTurno();
-//                                    if(turno==-1)turno=0;
+                                    int turno=this.acceso;//tablero.getTurno();
                                     System.out.println(turno+" ,"+tablero.getId());
                                     salida.writeInt(4);
                                     salida.writeInt(turno);
-                                    
                                     actualizarme(turno);
                                     salida.writeInt(5);
                                     break;
-                                }
-//                             
+                                }                             
 
-                                
-                                actualizarJuego();
-                                salida.writeInt(3);
+                                continuar();
                                 break;
                         }catch (IOException ex){         
                              Logger.getLogger(threadCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -310,75 +272,54 @@ public class threadCliente extends Thread{
                 case 9:
                 {
                     int turno=entrada.readInt();
-                    
                     String nombrejuego=entrada.readUTF();
-                    System.out.println("ENTRANDO A JUEGO");
-                    
-                    String enemigo = "";
-                    //boolean auxiliar = false;
-                    /*
-                    if (nombrejuego.equals("GATO")){
-                        //while (auxiliar==false){
-                            salida.writeInt(9);
-                            salida.writeUTF(this.name);
-                            turno=entrada.readInt();
-                            for (int i = 0; i < jugadores.size(); i++) {
-                                if(jugadores.get(i).getTurno()==turno){ 
-                                    enemigo = jugadores.get(i).getName();
-                                    break;
-                                }
-                            }
-                            //auxiliar = entrada.readBoolean();
-                        //}
-                        
-                    }
-                    */
-                    
-                    JFrame ventanajuego = new JFrame();
-                    
-                    ventanajuego = JuegosFactory.crearJuego(JuegosFactory.Games.COINS);
-                    
-                    ventanajuego.setVisible(true);
+                    Personajes jugador=jugadores.get(turno);
+                    setJuegoActivo(true);
                     
                     
-                   /*
-                    JuegoGato ventanajuego = (JuegoGato) JuegosFactory.crearJuego(JuegosFactory.Games.COINS);
-                    ventanajuego.setVisible(true);
-                    ventanajuego.setAmigo(this.name);
-                    ventanajuego.setEnemigo(enemigo);
-                    ventanajuego.setNumeroJugador(1);
-                    ventanajuego.setTurnoJugador(1);
-                    //ventanajuego.setVisible(true);
-                    /*
-                    while(ventanajuego.haGanado()){
-                        if (ventanajuego.getColumnaA()!=-1 & ventanajuego.getFilaA()!=-1){
-                            salida.writeInt(ventanajuego.getColumnaA());
-                            salida.writeInt(ventanajuego.getFilaA());
-                            ventanajuego.setColumnaA(-1);
-                            ventanajuego.setFilaA(-1);
-                            
+                    
+                    switch(nombrejuego){
+                        case "GATO" :{
+                            juegoGato(jugador,nombrejuego);
+                            break;
                         }
-                        ventanajuego.marcar(entrada.readInt(), entrada.readInt());
+                        case "COINS" :{
+                            collectCoins(jugador,nombrejuego);
+                            break;
+                        }
+                        case "PATH" :{
+                            memoryPath(jugador,nombrejuego);
+                            break;
+                        }           
                     }
-                    */
-                    
-                    break;
+                  esperar();
+                  break;
                 }
-                
+
                 case 10:{
                     
-                    String nombre = entrada.readUTF();
+                    String enemigo = entrada.readUTF();
                     
                     JuegoGato ventanajuego = (JuegoGato) JuegosFactory.crearJuego(JuegosFactory.Games.GATO);
                     ventanajuego.setVisible(true);
-                    
-                    /*ventanajuego.setAmigo(this.name);
-                    ventanajuego.setEnemigo(nombre);
+                    ventanajuego.setTitle(this.name);
+                    ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
                     ventanajuego.setNumeroJugador(2);
-                    ventanajuego.setTurnoJugador(1);*/
                     
+                    while(true){
+                        
+                        if(ganadorGato(ventanajuego,enemigo))break;
+                       
+                        turnoP1Gato(ventanajuego, enemigo);
+                        
+                        if(ventanajuego.fullTablero())break;
+                    }
                     break;
                     
+                }
+                case 11:{
+                    continuar();
+                    break;
                 }
             }
          }
@@ -389,9 +330,80 @@ public class threadCliente extends Thread{
       }
       System.out.println("se desconecto el servidor");
    }
+   private  void esperar(){
+        try {  
+            
+            while(getJuegoActivo()){
+                System.out.print("");
+            }
+                        
+            System.out.println("sali del juego");
+          
+            salida.writeInt(11);
+            
+         } catch (IOException ex) {
+             Logger.getLogger(threadCliente.class.getName()).log(Level.SEVERE, null, ex);
+         }
    
+    }
+    
+    
+    private void continuar(){
+         try { 
+             actualizarJuego();
+             System.out.println(tablero.getTurno());
+             salida.writeInt(3);
+         } catch (IOException ex) {
+             Logger.getLogger(threadCliente.class.getName()).log(Level.SEVERE, null, ex);
+         }
+   }
+    
+    private void abrirHielo() throws IOException{
+        while(tablero.getEnemigo()==null){
+            System.out.print("");                                       
+        }
+                                    
+        if(tablero.getEnemigo()!=null){
+            salida.writeInt(7);
+            salida.writeInt(tablero.getEnemigo().getTurno());
+        }
+        tablero.setEnemigo(null);
+        tablero.setHielo(false);
+        continuar();
+    }
+    
+    private void abrirCola(){
+        while(tablero.getCola()){
+            System.out.print("");
+        } 
+        continuar();
+    }
+    
+    private void abrirFuego() throws IOException{
+        while(tablero.getEnemigo()==null){
+        System.out.print("");
+        }
+        if(tablero.getEnemigo()!=null){
+            salida.writeInt(6);
+            salida.writeInt(tablero.getEnemigo().getTurno());
+            System.out.println(tablero.getEnemigo().getNum()+" "+tablero.getEnemigo().getName());
+            salida.writeInt(tablero.getEnemigo().getNum());    
+            }
+            tablero.setFuego(false);
+            tablero.setEnemigo(null);
+            continuar();           
+    }     
 
-   
+    private void abrirRepite() throws  IOException{
+        
+        System.out.println("repito turno... "+name);
+        tablero.setRepite(false);
+        int turno=this.acceso;//tablero.getTurno();
+        System.out.println(turno+" ,"+tablero.getId());
+        salida.writeInt(4);
+        salida.writeInt(turno);
+        actualizarme(turno);
+   }  
     private void actualizarme(int turno){
        
         System.out.println("ENTRE "+tablero.getTurno());
@@ -422,6 +434,167 @@ public class threadCliente extends Thread{
     
     
     }
-  
+  //JUEGOS
+    
+    private void collectCoins(Personajes jugadorP, String nombreJuego){
+         
+        CollectCoins ventanajuego = (CollectCoins) JuegosFactory.crearJuego(JuegosFactory.Games.COINS);
+
+        System.out.println("estoy en coins");
+
+        ventanajuego.setVisible(true);       
+        ventanajuego.setTitle(this.name);
+        ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        System.out.println("estoy en coins");
+        
+        
+        while(ventanajuego.isVisible()){
+            System.out.print("");
+        }
+        setJuegoActivo(false);
    
+    }
+    
+    private void memoryPath(Personajes jugadorP, String nombreJuego){
+    
+        MemoryPath ventanajuego = (MemoryPath) JuegosFactory.crearJuego(JuegosFactory.Games.MEMORYPATH);
+        ventanajuego.setVisible(true);       
+        ventanajuego.setTitle(this.name);
+        ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        
+        while(ventanajuego.getActivo()){
+            System.out.print("");
+        }
+        
+        setJuegoActivo(false);
+    }
+    
+            
+    private void juegoGato(Personajes jugadorP, String nombreJuego) throws IOException{
+        
+        int turno;
+        String enemigo="";
+        salida.writeInt(9);
+        salida.writeUTF(this.name);
+        turno=entrada.readInt();//encontrar el nombre del enemigo 
+        
+        for (int i = 0; i < jugadores.size(); i++) {
+            if(jugadores.get(i).getTurno()==turno){ 
+                enemigo = jugadores.get(i).getName();
+                break;
+            }
+        } 
+             
+        JuegoGato ventanajuego=(JuegoGato) JuegosFactory.crearJuego(JuegosFactory.Games.GATO);
+        ventanajuego.setVisible(true);       
+        ventanajuego.setTitle(this.name);
+        ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        ventanajuego.setNumeroJugador(1);
+        
+        int columna,fila,res;         
+        
+        while(true){
+            
+            turnoP1Gato(ventanajuego,enemigo);
+                        
+            if(ventanajuego.fullTablero()){
+                perdida();
+                setJuegoActivo(false);
+                break;
+            }
+                                   
+            res=entrada.readInt();
+            columna=entrada.readInt();
+            fila=entrada.readInt();
+
+            if(res==1){
+                JOptionPane.showInternalMessageDialog(null, "HAS GANADO", name, 1);
+                setJuegoActivo(false);
+                break;
+            }
+            
+            turnoP2Gato(ventanajuego,columna,fila);
+            
+            if(ventanajuego.haGanado()||ventanajuego.fullTablero()){//si gano el enemigo 
+               JOptionPane.showInternalMessageDialog(null, "HAS PERDIDO", name, 1);//perdida();
+               setJuegoActivo(false);            
+               break;         
+            }                     
+        }
+    }
+    
+    private void turnoP1Gato(JuegoGato ventanajuego,String enemigo) throws IOException{
+        
+        while(ventanajuego.getColumnaA()==-1){
+                System.out.print("");
+            }
+            salida.writeInt(10);
+            salida.writeInt(0);
+            salida.writeInt(ventanajuego.getColumnaA());
+            salida.writeInt(ventanajuego.getFilaA());
+            salida.writeUTF(enemigo);                        
+            ventanajuego.setColumnaA(-1);
+            ventanajuego.setFilaA(-1);
+    }
+   
+    private void turnoP2Gato(JuegoGato ventanajuego, int columna, int fila) throws IOException{
+
+        ventanajuego.marcar(columna, fila);
+        System.out.println("MARQUE PUNTO ENEMIGO ");
+        System.out.println(ventanajuego.haGanado());//AQUI SE DICE SI GANO EL ENEMIGO 
+    }
+    
+    private boolean ganadorGato(JuegoGato ventanajuego,String enemigo) throws IOException{
+        int columna,fila,res;
+        res=entrada.readInt();
+        columna=entrada.readInt();
+        fila=entrada.readInt();
+        ventanajuego.marcar(columna, fila);
+        ventanajuego.setColumnaA(-1);
+        ventanajuego.setFilaA(-1);
+
+        if(ventanajuego.haGanado()){ //si gano el primer jugador 
+            salida.writeInt(10);
+            salida.writeInt(1);
+            salida.writeInt(ventanajuego.getColumnaA());
+            salida.writeInt(ventanajuego.getFilaA());
+            salida.writeUTF(enemigo);
+            return true;
+        }
+
+        return false;    
+
+    }
+
+    private void perdida(){
+        JOptionPane.showInternalMessageDialog(null, "HAS PERDIDO", name, 1);
+    }
+    
+    private boolean isDigit(String num){
+        for (int i = 0; i < num.length(); i++) {
+            if (!Character.isDigit(num.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    
+    }
+   
+//GETTER AND SETTER
+
+    public boolean getJuegoActivo() {
+        return juegoActivo;
+    }
+
+    public void setJuegoActivo(boolean juegoActivo) {
+        this.juegoActivo = juegoActivo;
+    }
+
+    public boolean getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(boolean resultado) {
+        this.resultado = resultado;
+    }
 }

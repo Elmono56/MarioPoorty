@@ -5,6 +5,7 @@
  */
 package Servidor;
 import Personajes.Personajes;
+import Servidor.ServidorMarioParty;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -207,18 +208,39 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
                 Random rant = new Random();
                 
                 int enemigo = rant.nextInt(enemigos.size());
-                
-                System.out.println(enemigos.get(enemigo).getName());
-                
+                                
                 salida.writeInt(enemigos.get(enemigo).getPersonaje().getTurno());
              
                 enemigos.get(enemigo).salida.writeInt(10);
                 
                 enemigos.get(enemigo).salida.writeUTF(nombre);
-                
-                //salida.writeBoolean(true);
-                
+                                
                 break;
+             }
+             case 10:
+             {
+                 int res=entrada.readInt();
+                 int columna=entrada.readInt();
+                 int fila= entrada.readInt();
+                 String enemigo=entrada.readUTF();
+                 
+                 for (int i = 0; i < enemigos.size(); i++) {
+                     
+                    if(enemigos.get(i).getPersonaje().getName().equals(enemigo)){
+                        
+                        enemigos.get(i).salida.writeInt(res);
+                        enemigos.get(i).salida.writeInt(columna);
+                        enemigos.get(i).salida.writeInt(fila);
+                        
+                        break;
+                        }
+
+                    }
+                break;
+                }
+             case 11:{
+                 salida.writeInt(11);
+                 break;
              }
         }
              

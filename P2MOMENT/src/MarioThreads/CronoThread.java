@@ -8,6 +8,8 @@ package MarioThreads;
 import GamesFactory.CollectCoins;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 /**
  *
@@ -21,7 +23,7 @@ public class CronoThread extends Thread{
     private int seconds = 0;
     private int minutes = 0;
 
-    public CronoThread(javax.swing.JFrame refPantalla, int segundos, int minutos) {
+    public CronoThread(JFrame refPantalla , int segundos, int minutos) {
         this.seconds = segundos;
         this.minutes = minutos;
         
@@ -55,7 +57,7 @@ public class CronoThread extends Thread{
                 
                 String newTime = setNiceFormat(minutes) + ":" + setNiceFormat(seconds); 
                 refPantallaCC.setTextToCrono(newTime);
-                
+              
                 
                 if (minutes == 0 & seconds == 0){
                     //FINAL TIEMPO

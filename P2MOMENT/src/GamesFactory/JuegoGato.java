@@ -5,20 +5,10 @@
  */
 
 package GamesFactory;
-
-import java.awt.Color;
-import java.awt.LayoutManager;
 import java.awt.event.MouseAdapter;
-import java.io.IOException;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle;
 
 /**
  *
@@ -51,6 +41,7 @@ public class JuegoGato extends javax.swing.JFrame {
     int filaA = -1;
     
     int columnaA = -1;
+    boolean resultado=false,full=false;
     
     public JuegoGato() {
         // esto es parte del gato
@@ -90,12 +81,26 @@ public class JuegoGato extends javax.swing.JFrame {
     public void setNumeroJugador(int numeroJugador) {
         this.numeroJugador = numeroJugador;
     }
+
+    public boolean getResultado() {
+        return this.resultado;
+    }
+
+    public boolean getFull() {
+        return this.full;
+    }
+
+    public void setResultado(boolean resultado) {
+        this.resultado = resultado;
+    }
+
+    public void setFull(boolean full) {
+        this.full = full;
+    }
     
     
     
-    
-    
-    void generarTablero()
+    public void generarTablero()
     {
         for(int i=0;i<DIMENSIONES;i++)
         {
@@ -127,6 +132,8 @@ public class JuegoGato extends javax.swing.JFrame {
     // este metodo es la respuesta del cliente al clic del enemigo
     public void marcar(int columna, int fila)
     {
+        try {
+            
         // marca el tablero con num de jugador
         tableroLogico[columna][fila]=turnoJugador;
         // si soy el 1, marco con o que es el 2, sino con X
@@ -135,23 +142,19 @@ public class JuegoGato extends javax.swing.JFrame {
             tableroLabels[columna][fila].setIcon(iconoCirculo);
         else
             tableroLabels[columna][fila].setIcon(iconoEquiz);
-            
-        // pregunta si gano el enemigo
-            if(haGanado())
-            {
-                JOptionPane.showMessageDialog(null, "Ha ganado el jugador "+turnoJugador);
-                
-                
-            }          
         // este fue el clic del enemigo, marco ahora mi turno
         turnoJugador = numeroJugador;
         jLabel1.setText("Turno del Jugador "+turnoJugador);
-        
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return;
+        }        
         
     }
     
     public void clickSobreTablero(java.awt.event.MouseEvent evt)
     {
+        columnaA=-1;
+        filaA=-1;
         // obtiene el boton 
         JButton botonTemp = (JButton)evt.getComponent();
         // obtiene el i,j de action command del boton
@@ -182,13 +185,13 @@ public class JuegoGato extends javax.swing.JFrame {
             tableroLabels[columnaA][filaA].setIcon(iconoCirculo);
             turnoJugador=1;
         }
+        
         // muestra el turno del jugador
          jLabel1.setText("Turno del Jugador "+turnoJugador);
-         
              
     }
 
-    public int getFilaA() {
+public int getFilaA() {
         return this.filaA;
     }
 
@@ -205,8 +208,17 @@ public class JuegoGato extends javax.swing.JFrame {
     }
     
     
+    public boolean fullTablero(){
+        for(int i=0;i<DIMENSIONES;i++){
+            for(int j=0;j<DIMENSIONES;j++){
+             if(tableroLabels[i][j].getIcon()==iconoVacio)return false;
+            }
+        }
+        return true;
+    }
     
-    public boolean haGanado()
+    
+     public boolean haGanado()
     {
         
         //Ganó en las filas

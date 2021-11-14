@@ -5,10 +5,6 @@
  */
 package GamesFactory;
 
-import Personajes.Personajes;
-import java.util.ArrayList;
-import java.util.Random;
-
 /**
  *
  * @author hidal
@@ -41,6 +37,9 @@ public class JuegosFactory {
             }
             case GUESSWHO:{
                 return new GuessWho();
+            }
+            case MEMORYPATH:{
+                return new MemoryPath();
             }
         }
         return null;
