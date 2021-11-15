@@ -163,23 +163,24 @@ public void runServer(){
     private String getJuego(int opcion){
         
         switch (opcion){
-            case 0:return  "GATO";
-            case 1:return  "SOPA";
-            case 2:return  "PATH";
-            case 3:return  "MEMORY";
-            case 4:return  "CAT";
-            case 5:return  "BOMBER";
-            case 6:return  "WHO?";
-            case 7:return  "COINS";
-            case 8:return  "CARDS";
-            case 9:return  "CARCEL";
-            case 10:return "TUBO";//CORREGIR ESTE CODIGO
-            case 11:return "TUBO";
-            case 12:return "TUBO";
-            case 13:return "ESTRELLA";
-            case 14:return "FUEGO";
-            case 15:return "HIELO";
-            case 16:return "COLA";
+            
+            case 0:return  "COINS";//"GATO";
+            case 1:return  "COINS";//SOPA";
+            case 2:return  "COINS";//"PATH";
+            case 3:return  "COINS";//"MEMORY";
+            case 4:return  "COINS";//"CAT";
+            case 5:return  "COINS";//"BOMBER";
+            case 6:return  "COINS";//"WHO?";
+            case 7:return  "COINS";//"COINS";
+            case 8:return  "COINS";//"CARDS";
+            case 9:return  "COINS";//"CARCEL";
+            case 10:return "COINS";//"TUBO";//CORREGIR ESTE CODIGO
+            case 11:return "COINS";//"TUBO";
+            case 12:return "COINS";//"TUBO";
+            case 13:return "COINS";//"ESTRELLA";
+            case 14:return "COINS";//"FUEGO";
+            case 15:return "COINS";//"HIELO";
+            case 16:return "COINS";//"COLA";
         
         }
         return null;

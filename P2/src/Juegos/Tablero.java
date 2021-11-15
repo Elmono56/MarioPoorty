@@ -27,7 +27,8 @@ public class Tablero extends javax.swing.JFrame {
     private Personajes enemigo =null;
     private boolean finish,repite,fuego,hielo,cola;
     private Personajes jugadorEnTurno=null;
-    
+    private boolean juego=false;
+    private String nombrejuego="";
    
     
     
@@ -277,6 +278,7 @@ public class Tablero extends javax.swing.JFrame {
     
     
     private boolean verificarDados(Personajes jugador,int dado1,int dado2){
+        /*
         if(dado1==6 && dado2==6){
             jugador.setInmovil(true);
             jugador.setCantInmovil(2);
@@ -291,6 +293,7 @@ public class Tablero extends javax.swing.JFrame {
             resultadoDados=0;
             return false;
         }
+        */
         return true;
     }
     
@@ -329,76 +332,72 @@ public class Tablero extends javax.swing.JFrame {
 
         
     
-    
     private Personajes verificarCasilla(JButton casilla,Personajes jugador){
         
-        if(casilla.getText().equals("CARCEL")){
-            jugador.setInmovil(true);
-            jugador.setCantInmovil(2);
-            return jugador;
-        }
+      String casillaActual=casilla.getText();
         
-        if(casilla.getText().equals("ESTRELLA")){
-            this.setRepite(true);
-            return jugador;
-        }
-
-        if(casilla.getText().equals("FUEGO")){
+        switch(casillaActual){
+            case "CARCEL":{
+                jugador.setInmovil(true);
+                jugador.setCantInmovil(2);
+                break;
+            }
+            case "ESTRELLA":{
+                this.setRepite(true);
+                break;
+            }
+            case "FUEGO":{
+                this.setFuego(true);            
+                jButtonLanzar.setEnabled(false);
+                atacarEnemigo(jugador,0);//0 IDENTIFICADOR DE FUEGO
+                break;
+            }
+            case "HIELO":{
+                this.setHielo(true);
+                jButtonLanzar.setEnabled(false);
+                atacarEnemigo(jugador,1);//1 IDENTIFICADOR DE HIELO 
+                break;
+            }
+            case "COLA":{  
+                this.setCola(true);
+                int num;
+                jButtonLanzar.setEnabled(false);
+                num=cola(jugador);
+                jugador.setCasillaActual(jugador.getCasillaActual()+num);
+                resultadoDados+=num;
+                this.setCola(false);
+                break;
+            }
+            case "TUBO1":{
+                this.tubo=1;
+                jugador.setCasillaActual(encontrarTubo("TUBO2"));
+                break;
+            } 
+            case "TUBO2":{
+                this.tubo=1;
+                jugador.setCasillaActual(encontrarTubo("TUBO3"));
+                break;
+            }
+            case "TUBO3":{
+                this.tubo=1;
+                jugador.setCasillaActual(encontrarTubo("TUBO1"));
+                break;
+            }
+            case "FINISH":{
+                this.finish=true;
+                break;
+            }
+            case "START":{break;}
             
-            this.setFuego(true);            
-            jButtonLanzar.setEnabled(false);
-            atacarEnemigo(jugador,0);//0 IDENTIFICADOR DE FUEGO
-            return jugador;
+            default:{
+                setJuego(true);    
+                setNombrejuego(casilla.getText());
+                break;
+            }
         }
-        
-        
-        if(casilla.getText().equals("HIELO")){
-            this.setHielo(true);
-            jButtonLanzar.setEnabled(false);
-            atacarEnemigo(jugador,1);//1 IDENTIFICADOR DE HIELO 
-            return jugador;
-        }
-        
-        
-        
-        if(casilla.getText().equals("COLA")){ //crear restricciones de si hay es casilla de extremos 
-            this.setCola(true);
-            int num;
-            jButtonLanzar.setEnabled(false);
-            num=cola(jugador);
-            jugador.setCasillaActual(jugador.getCasillaActual()+num);
-            resultadoDados+=num;
-            this.setCola(false);
-            return jugador;
-        }
-                
-        if(casilla.getText().equals("TUBO1")){
-            this.tubo=1;
-            jugador.setCasillaActual(encontrarTubo("TUBO2"));
-            return jugador;
-        }
-        
-        
-        if(casilla.getText().equals("TUBO2")){
-            this.tubo=1;
-            jugador.setCasillaActual(encontrarTubo("TUBO3"));
-            return jugador;
-        }
-        
-        
-        if(casilla.getText().equals("TUBO3")){
-            this.tubo=1;
-            jugador.setCasillaActual(encontrarTubo("TUBO1"));
-            return jugador;
-
-        }
-        
-        if(casilla.getText().equals("FINISH")){
-            this.finish=true;
-        }
-            
         return jugador;
     }
+        
     private int cola(Personajes jugador){
         
         ArrayList<Integer> casillas=new ArrayList<Integer>();
@@ -499,6 +498,23 @@ public class Tablero extends javax.swing.JFrame {
     public Personajes getEnemigo() {
         return this.enemigo;
     }
+
+    public boolean getJuego() {
+        return this.juego;
+    }
+
+    public void setJuego(boolean juego) {
+        this.juego = juego;
+    }
+
+    public String getNombrejuego() {
+        return this.nombrejuego;
+    }
+
+    public void setNombrejuego(String nombrejuego) {
+        this.nombrejuego = nombrejuego;
+    }
+    
     
     
     public boolean haGanado(){

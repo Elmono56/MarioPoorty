@@ -10,7 +10,7 @@ import javax.swing.JButton;
  */
 
 public  class Personajes implements Serializable{
-        private boolean inmovil,repite;
+        private boolean inmovil,repite,juegoPendiente;
         private String nombre;
         private JButton refButton;
         private int numero,casilla,turno,cantInmovil;

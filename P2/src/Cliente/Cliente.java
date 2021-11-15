@@ -65,13 +65,19 @@ public class Cliente {
          
             
 //si es el primero le pide la cantidad de jugadores 
-             if(entrada.readInt()==0){
-                int cant;
-                cant=Integer.parseInt(JOptionPane.showInputDialog("Introducir Cantidad de Jugadores :"));
-                
-                //NOTA: agregar validaciones de entero y que sea menor O IGUAL a 6
-                
-                salida.writeInt(cant);
+            if(entrada.readInt()==0){
+                String cant;
+                int num;
+                while(true){   
+                    cant=JOptionPane.showInputDialog("Introducir Cantidad de Jugadores :");
+                    if(isDigit(cant)){
+                        num=Integer.parseInt(cant);
+                        if(num>1 && num<7)break;
+                    }
+                    JOptionPane.showMessageDialog(null, "POR FAVOR INGRESE UN NUMERO, ENTRE 2 Y 6");
+                }
+
+                    salida.writeInt(num);
             }
          
                   
@@ -116,7 +122,7 @@ public class Cliente {
       // a la ventana gato puede colocar en la pantalla cualquier cosa, como las
       //imagenes de X o O, llamar a metodo marcar, colocar el nombre de enemigo
       // o el suyo propio
-      new threadCliente(entrada,entradaObj,salida, salidaObj,ventanaCliente,nomCliente).start();
+      new threadCliente(entrada,entradaObj,salida,ventanaCliente,nomCliente).start();
    }
    
    //GETTET AND SETTER
@@ -130,6 +136,15 @@ public class Cliente {
 
     public int getMiPersonaje() {
         return miPersonaje;
+    }
+    
+        private boolean isDigit(String num){
+        for (int i = 0; i < num.length(); i++) {
+            if (!Character.isDigit(num.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
     
 }
