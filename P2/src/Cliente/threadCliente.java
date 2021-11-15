@@ -7,6 +7,7 @@ package Cliente;
 import GamesFactory.CollectCoins;
 import GamesFactory.JuegoGato;
 import GamesFactory.JuegosFactory;
+import GamesFactory.Memory;
 import GamesFactory.MemoryPath;
 import Personajes.*;
 import Juegos.*;
@@ -289,7 +290,11 @@ public class threadCliente extends Thread{
                         case "PATH" :{
                             memoryPath(jugador,nombrejuego);
                             break;
-                        }           
+                        }  
+                        case "MEMORY" :{
+                            memory(jugador,nombrejuego);
+                            break;
+                        } 
                     }
                   esperar();
                   break;
@@ -318,6 +323,42 @@ public class threadCliente extends Thread{
                 }
                 case 11:{
                     continuar();
+                    break;
+                }
+                case 12:{
+                    int parejas=0;
+                    String enemigo = entrada.readUTF();
+                    Memory ventanajuego = (Memory) JuegosFactory.crearJuego(JuegosFactory.Games.SUPERBROSM);
+                    ventanajuego.setVisible(true);
+                    ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
+                    ventanajuego.setMiTurno(1);
+                    ventanajuego.setTitle(this.name+" "+"j"+1);
+
+                    
+                    while(true){
+                       
+                        ventanajuego.setListo(false);
+                        ventanajuego.setTurnoJuego(1);
+                        while(ventanajuego.getListo()==false){
+                           System.out.print("");
+                       
+                        }
+                       
+                        if(ventanajuego.getIntentos()<1){
+                           salida.writeInt(13);
+                           salida.writeUTF(enemigo);
+                           salida.writeInt(ventanajuego.getParejas());
+                           break;
+                       }
+                        
+                       salida.writeInt(13);
+                       salida.writeUTF(enemigo);
+                       salida.writeInt(-1);
+                       
+                       ventanajuego.setTurnoJuego(2);
+                       parejas=entrada.readInt();
+                    }
+                    
                     break;
                 }
             }
@@ -470,7 +511,60 @@ public class threadCliente extends Thread{
         setJuegoActivo(false);
     }
     
+     
+    private void memory(Personajes jugadorP, String nombreJuego) throws IOException{
+        int turno;
+        String enemigo="";
+        salida.writeInt(12);
+        salida.writeUTF(this.name);
+        turno=entrada.readInt();//encontrar el nombre del enemigo 
+        
+        for (int i = 0; i < jugadores.size(); i++) {
+            if(jugadores.get(i).getTurno()==turno){ 
+                enemigo = jugadores.get(i).getName();
+                break;
+            }
+        }
+        
+        Memory ventanajuego = (Memory) JuegosFactory.crearJuego(JuegosFactory.Games.SUPERBROSM);
+        ventanajuego.setVisible(true);
+        ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        ventanajuego.setMiTurno(2);
+        ventanajuego.setTitle(this.name+" "+"j"+2);
+        
+        int parejas;
+        while (true){
             
+            parejas=entrada.readInt();            
+            ventanajuego.setTurnoJuego(2);
+            ventanajuego.setListo(false);
+            
+            while(ventanajuego.getListo()==false){
+                System.out.print("");
+            }
+            
+            if(parejas!=-1){
+                if(parejas>=ventanajuego.getParejas()){
+                    
+                JOptionPane.showInternalMessageDialog(null, "HAS PERDIDO", name, 1);
+                break;
+                
+                }
+                JOptionPane.showInternalMessageDialog(null, "HAS GANADO", name, 1);
+                break;
+            }
+            
+            salida.writeInt(13);
+            salida.writeUTF(enemigo);
+            salida.writeInt(-1); 
+            ventanajuego.setTurnoJuego(1);
+        }
+        setJuegoActivo(false);
+            
+    }
+    
+    
+    
     private void juegoGato(Personajes jugadorP, String nombreJuego) throws IOException{
         
         int turno;

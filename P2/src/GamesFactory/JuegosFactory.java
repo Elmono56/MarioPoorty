@@ -41,6 +41,9 @@ public class JuegosFactory {
             case MEMORYPATH:{
                 return new MemoryPath();
             }
+            case SUPERBROSM:{
+                return new Memory();
+            }
         }
         return null;
     }

@@ -217,8 +217,7 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
                                 
                 break;
              }
-             case 10:
-             {
+             case 10:{
                  int res=entrada.readInt();
                  int columna=entrada.readInt();
                  int fila= entrada.readInt();
@@ -238,10 +237,43 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
                     }
                 break;
                 }
+             
              case 11:{
                  salida.writeInt(11);
                  break;
              }
+             
+            case 12:{
+                String nombre = entrada.readUTF();
+                
+                Random rant = new Random();
+                
+                int enemigo = rant.nextInt(enemigos.size());
+                                
+                salida.writeInt(enemigos.get(enemigo).getPersonaje().getTurno());
+             
+                enemigos.get(enemigo).salida.writeInt(12);
+                
+                enemigos.get(enemigo).salida.writeUTF(nombre);
+                break;
+            }
+            case 13:{
+                String enemigo=entrada.readUTF(); 
+                int parejas= entrada.readInt();
+                 
+                 
+                 for (int i = 0; i < enemigos.size(); i++) {
+                     
+                    if(enemigos.get(i).getPersonaje().getName().equals(enemigo)){
+
+                        enemigos.get(i).salida.writeInt(parejas);
+                        
+                        break;
+                        }
+
+                    }
+                break;
+            }
         }
              
              
