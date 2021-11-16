@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/chave/Documents/NetBeansProjects/MarioPoorty/P2/src/Cliente/threadCliente.java</file>
+            <file>file:/C:/Users/chave/Documents/NetBeansProjects/MarioPoorty/P2/src/Servidor/ServidorMarioParty.java</file>
+            <file>file:/C:/Users/chave/Documents/NetBeansProjects/MarioPoorty/P2/src/Servidor/threadServidor.java</file>
+            <file>file:/C:/Users/chave/Documents/NetBeansProjects/MarioPoorty/P2/src/Juegos/Tablero.java</file>
+            <file>file:/C:/Users/chave/Documents/NetBeansProjects/MarioPoorty/P2/src/GamesFactory/GuessWho.java</file>
+            <file>file:/C:/Users/chave/Documents/NetBeansProjects/MarioPoorty/P2/src/Cliente/Cliente.java</file>
+            <file>file:/C:/Users/chave/Documents/NetBeansProjects/MarioPoorty/P2/src/GamesFactory/JuegoGato.java</file>
+        </group>
     </open-files>
 </project-private>

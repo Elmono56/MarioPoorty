@@ -278,7 +278,7 @@ public class Tablero extends javax.swing.JFrame {
     
     
     private boolean verificarDados(Personajes jugador,int dado1,int dado2){
-        /*
+        
         if(dado1==6 && dado2==6){
             jugador.setInmovil(true);
             jugador.setCantInmovil(2);
@@ -293,7 +293,7 @@ public class Tablero extends javax.swing.JFrame {
             resultadoDados=0;
             return false;
         }
-        */
+        
         return true;
     }
     

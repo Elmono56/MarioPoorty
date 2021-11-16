@@ -24,7 +24,7 @@ public class Memory extends javax.swing.JFrame {
     private static int fila=6;
     private int contador=0,k=0,l=0,parejas=0,intentos=9;
     private int cartasIguales,turnoJuego=1;
-    private int miTurno;
+    private int miTurno=1;
     private boolean listo;
     private JButton[][] tableroLabels= new JButton[fila][col];
     private int math [][]= new int[fila][col];

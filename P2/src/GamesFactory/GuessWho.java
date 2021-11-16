@@ -3,6 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+//actualizado
+
+
 package GamesFactory;
 
 import java.awt.event.MouseAdapter;
@@ -30,6 +34,7 @@ public class GuessWho extends javax.swing.JFrame {
     int[][] valoresM = new int[DIMENSIONES][DIMENSIONES];
     ImageIcon iconoM = new ImageIcon(getClass().getResource("/Imagenes/question4.JPG"));
     int indicef = 0;
+    private boolean activo;
     
     
     
@@ -37,13 +42,13 @@ public class GuessWho extends javax.swing.JFrame {
         MARIO,
         LUIGI,
         PEACH,
-        FLYREDT,
+        FLYGREENT,
         BOO,
         KINGBOO,
         TOAD,
         BOWSER,
         YOSHI,
-        KOOPAS,
+        WALUIGI,
         GOOMBAS,
         FLORUGA,
         MINIKONG,
@@ -57,6 +62,7 @@ public class GuessWho extends javax.swing.JFrame {
         generartablero();
         generarbotones();
         generarIntentos();
+        this.activo=true;
     }
 
     
@@ -71,7 +77,7 @@ public class GuessWho extends javax.swing.JFrame {
                 //añade al panel el boton;
                 jPFoto.add(botones[i][j]);
                 // coloca dimensiones y localidad
-                botones[i][j].setBounds(5+62*i, 5+62*j, 56, 56); //60,60
+                botones[i][j].setBounds(5+62*i, 5+62*j, 60, 60);
                 // coloca el comand como i , j 
                 botones[i][j].setActionCommand(i+","+j);//i+","+j
                 
@@ -89,7 +95,7 @@ public class GuessWho extends javax.swing.JFrame {
         
     }
     
-    void generarbotones(){
+     void generarbotones(){
         
         for(int i=0;i<CANTBOTONES;i++)
         {
@@ -126,7 +132,7 @@ public class GuessWho extends javax.swing.JFrame {
                 break;
             }
             case 3: {
-                opciones[i].setText("FLY RED TURTLE");
+                opciones[i].setText("FLYING GREEN TURTLE");
                 break;
             }
             case 4: {
@@ -150,7 +156,7 @@ public class GuessWho extends javax.swing.JFrame {
                 break;
             }
             case 9: {
-                opciones[i].setText("KOOPAS");
+                opciones[i].setText("WALUIGI");
                 break;
             }
             case 10: {
@@ -162,7 +168,7 @@ public class GuessWho extends javax.swing.JFrame {
                 break;
             }
             case 12: {
-                opciones[i].setText("MINIKONG");
+                opciones[i].setText("DIDDY KONG");
                 break;
             }
             case 13: {
@@ -179,8 +185,7 @@ public class GuessWho extends javax.swing.JFrame {
         
     }
     
-    
-    void setTransparente(java.awt.event.MouseEvent evt){
+   void setTransparente(java.awt.event.MouseEvent evt){
         
         if (intentos!=0){
             
@@ -200,8 +205,6 @@ public class GuessWho extends javax.swing.JFrame {
             
             botones[columna][fila].setBorderPainted(false);
             
-            //hay que remover la foto del boton
-            
             intentos--;
             
             lblIntentos.setText("Intentos: " + intentos);
@@ -211,6 +214,7 @@ public class GuessWho extends javax.swing.JFrame {
     }
     
     
+    
     void generarIntentos(){
         
         Random aux = new Random();
@@ -218,102 +222,78 @@ public class GuessWho extends javax.swing.JFrame {
         intentos = (int) aux.nextInt(5) + 4;
         
        lblIntentos.setText("Intentos: " + intentos);
-        
+       
     }
     
-    /*
-    void setTextoBTN(JButton btn, NOMBRES tipo){
-        
-        switch(tipo){
-            
-            case MARIO: btn.setText("MARIO");
-            case LUIGI: btn.setText("LUIGI");
-            case PEACH: btn.setText("PEACH");
-            case FLYREDT: btn.setText("FLY RED TURTLE");
-            case BOO: btn.setText("BOO");
-            case KINGBOO: btn.setText("KING BOO");
-            case TOAD: btn.setText("TOAD");
-            case BOWSER: btn.setText("BOWSER");
-            case YOSHI: btn.setText("YOSHI");
-            case KOOPAS: btn.setText("KOOPAS");
-            case GOOMBAS: btn.setText("GOOMBAS");
-            case FLORUGA: btn.setText("FLORUGA");
-            case MINIKONG: btn.setText("MINIKONG");
-            case SKELETON: btn.setText("SKELETON");
-            case WARIO: btn.setText("WARIO");
-            
-        }
-        
-    }
-    */
     
-    
-    void setFoto(){
+void setFoto(){
         
         Random rant = new Random();
         
-        indicef = (int) rant.nextInt(CANTBOTONES) + 1;
+        indicef = (int) rant.nextInt(CANTBOTONES);
+        
+        System.out.println(indicef);
         
         switch(indicef){
             
             case 0:{
-                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/mario.JPG")));
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/marioGW.PNG")));
                 break;
             }
             case 1:{
-                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/luigi.PNG")));
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/luigiGW.PNG")));
                 break;
             }
             case 2:{
-                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/peach.PNG")));
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/peachGW.PNG")));
                 break;
             }
             case 3:{
-                //jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/peach.PNG"))); //fly red turttle
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/greenflyingturtleGW.PNG")));
                 break;
             }
             case 4:{
-                //jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/peach.PNG"))); //boo
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/booGW.PNG")));
                 break;
             }
             case 5:{
-                //jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/peach.PNG"))); //king boo
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/kingbooGW.PNG")));
                 break;
             }
             case 6:{
-                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/toad.JPG")));
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/toadGW.PNG")));
                 break;
             }
             case 7:{
-                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/bowser.JPG")));
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/bowserGW.PNG")));
                 break;
             }
             case 8:{
-                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/Yoshi.PNG")));
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/yoshiGW.PNG")));
                 break;
             }
             case 9:{
-                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/koopa.PNG")));
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/waluigiGW.PNG")));
                 break;
             }
             case 10:{
-                //jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/peach.PNG"))); //goombas
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/goombaGW.PNG")));
                 break;
             }
             case 11:{
-                //jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/peach.PNG"))); //floruga
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/florugaGW.PNG")));
                 break;
             }
             case 12:{
-                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/miniKong.PNG")));
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/diddykongGW.PNG")));
                 break;
             }
             case 13:{
-                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/skeleton.JPG")));
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/skeletonGW.PNG")));
                 break;
             }
             case 14:{
-                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/wario.JPG")));
+                jPFoto.insertIcon(new ImageIcon(getClass().getResource("/Imagenes/warioGW.PNG")));
                 break;
             }
         }   
@@ -334,21 +314,21 @@ public class GuessWho extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "PERDISTE","Error", JOptionPane.ERROR_MESSAGE);
         }
         
+        this.activo=false;
+        this.setVisible(false);
         
         
     }
+
+    public boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     /**
      * This method is called from within the constructor to initialize the form.

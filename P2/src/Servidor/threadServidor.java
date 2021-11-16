@@ -31,7 +31,6 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
     
     private ServidorMarioParty servidor;   // referencia al servidor
     
-   //ArrayList<threadServidor> usuarios;
     ArrayList<threadServidor> enemigos = new ArrayList<threadServidor>(); // para envio de informacion al enemigo
     ArrayList<Personajes> jugadores= new ArrayList<Personajes>();
     
@@ -336,10 +335,6 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
         }
      
 
-    
-    
-    
-    
 //Getter
      public String getNameUser(){
        return nameUser;

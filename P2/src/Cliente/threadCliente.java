@@ -5,6 +5,7 @@
  */
 package Cliente;
 import GamesFactory.CollectCoins;
+import GamesFactory.GuessWho;
 import GamesFactory.JuegoGato;
 import GamesFactory.JuegosFactory;
 import GamesFactory.Memory;
@@ -141,14 +142,14 @@ public class threadCliente extends Thread{
                          }
  
                         try {     
-                                /*
+                                
                                 if(tablero.haGanado()==true){
                                     salida.writeInt(2);
                                     salida.writeUTF(name);
                                     JOptionPane.showMessageDialog(null, "GANADOR: "+name, "GANADOR DEL JUEGO", 1);
                                     tablero.setVisible(false);  
                                 }
-                                */
+                                
                             
                                 if (tablero.getJuego()==true){
                              
@@ -281,7 +282,6 @@ public class threadCliente extends Thread{
                     switch(nombrejuego){
                         case "GATO" :{
                             juegoGato(jugador,nombrejuego);
-                            
                             break;
                         }
                         case "COINS" :{
@@ -295,7 +295,12 @@ public class threadCliente extends Thread{
                         case "MEMORY" :{
                             memory(jugador,nombrejuego);
                             break;
-                        } 
+                        }
+                        case "WHO?" :{
+                            guessWho(jugador,nombrejuego);
+                            break;
+                        }
+                        //default:continuar();
                     }
                   esperar();
                   break;
@@ -307,7 +312,7 @@ public class threadCliente extends Thread{
                     
                     JuegoGato ventanajuego = (JuegoGato) JuegosFactory.crearJuego(JuegosFactory.Games.GATO);
                     ventanajuego.setVisible(true);
-                    ventanajuego.setTitle(this.name);
+                    ventanajuego.setTitle(this.name+" j2");
                     ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
                     ventanajuego.setNumeroJugador(2);
                     
@@ -333,7 +338,7 @@ public class threadCliente extends Thread{
                     ventanajuego.setVisible(true);
                     ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
                     ventanajuego.setMiTurno(1);
-                    ventanajuego.setTitle(this.name+" "+"j"+1);
+                    ventanajuego.setTitle(this.name+" j1");
 
                     
                     while(true){
@@ -371,7 +376,7 @@ public class threadCliente extends Thread{
       }
       System.out.println("se desconecto el servidor");
    }
-   private  void esperar(){
+    private  void esperar(){
         try {  
             
             while(getJuegoActivo()){
@@ -387,8 +392,7 @@ public class threadCliente extends Thread{
          }
    
     }
-    
-    
+
     private void continuar(){
          try { 
              actualizarJuego();
@@ -477,18 +481,21 @@ public class threadCliente extends Thread{
     
     
     }
-  //JUEGOS
+  
+
+
+//JUEGOS
     
     private void collectCoins(Personajes jugadorP, String nombreJuego){
          
         CollectCoins ventanajuego = (CollectCoins) JuegosFactory.crearJuego(JuegosFactory.Games.COINS);
 
-        System.out.println("estoy en coins");
+        //System.out.println("estoy en coins");
 
         ventanajuego.setVisible(true);       
         ventanajuego.setTitle(this.name);
         ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
-        System.out.println("estoy en coins");
+        //System.out.println("estoy en coins");
         
         
         while(ventanajuego.isVisible()){
@@ -512,6 +519,22 @@ public class threadCliente extends Thread{
         setJuegoActivo(false);
     }
     
+    private void guessWho(Personajes jugadorP, String nombreJuego){
+        
+        GuessWho ventanajuego=(GuessWho) JuegosFactory.crearJuego(JuegosFactory.Games.GUESSWHO);
+        ventanajuego.setVisible(true);       
+        ventanajuego.setTitle(this.name);
+        ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        
+        while(ventanajuego.getActivo()){
+            System.out.print("");
+        }
+        
+        setJuegoActivo(false);
+
+    }
+    
+    
      
     private void memory(Personajes jugadorP, String nombreJuego) throws IOException{
         int turno;
@@ -531,7 +554,7 @@ public class threadCliente extends Thread{
         ventanajuego.setVisible(true);
         ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
         ventanajuego.setMiTurno(2);
-        ventanajuego.setTitle(this.name+" "+"j"+2);
+        ventanajuego.setTitle(this.name+" j2");
         
         int parejas;
         while (true){
@@ -583,19 +606,19 @@ public class threadCliente extends Thread{
              
         JuegoGato ventanajuego=(JuegoGato) JuegosFactory.crearJuego(JuegosFactory.Games.GATO);
         ventanajuego.setVisible(true);       
-        ventanajuego.setTitle(this.name);
+        ventanajuego.setTitle(this.name+" j1");
         ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
         ventanajuego.setNumeroJugador(1);
         
         int columna,fila,res;         
         
-        while(true){
+        while(ventanajuego.getActivo()){
             
             turnoP1Gato(ventanajuego,enemigo);
                         
             if(ventanajuego.fullTablero()){
                 perdida();
-                setJuegoActivo(false);
+                ventanajuego.setActivo(false);
                 break;
             }
                                    
@@ -605,7 +628,7 @@ public class threadCliente extends Thread{
 
             if(res==1){
                 JOptionPane.showInternalMessageDialog(null, "HAS GANADO", name, 1);
-                setJuegoActivo(false);
+                ventanajuego.setActivo(false);
                 break;
             }
             
@@ -613,10 +636,11 @@ public class threadCliente extends Thread{
             
             if(ventanajuego.haGanado()||ventanajuego.fullTablero()){//si gano el enemigo 
                JOptionPane.showInternalMessageDialog(null, "HAS PERDIDO", name, 1);//perdida();
-               setJuegoActivo(false);            
+               ventanajuego.setActivo(false);
                break;         
             }                     
         }
+        setJuegoActivo(false);
     }
     
     private void turnoP1Gato(JuegoGato ventanajuego,String enemigo) throws IOException{

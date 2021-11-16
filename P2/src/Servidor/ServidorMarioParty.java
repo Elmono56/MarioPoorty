@@ -84,24 +84,24 @@ public void runServer(){
 
             ventana.mostrar("partida iniciada");
            
-//            // proceso de orden de turnos
-//            int ordenT=r.nextInt(2);
-//            if(ordenT==0){
-//            
-//                ordenDados(ordenT);
-//                Collections.sort(user);
-//                Collections.copy(user, user);
-//                Collections.reverse(user);
-//                
-//
-//            }else{
-//                int corte=r.nextInt(1000)+1;
-//                ventana.mostrar("el corte es: "+corte);
-//                ordenNum(ordenT,corte);
-//                Collections.sort(user);
-//                Collections.copy(user, user);
-//            }
-//            
+            // proceso de orden de turnos
+            int ordenT=r.nextInt(2);
+            if(ordenT==0){
+            
+                ordenDados(ordenT);
+                Collections.sort(user);
+                Collections.copy(user, user);
+                Collections.reverse(user);
+                
+
+            }else{
+                int corte=r.nextInt(1000)+1;
+                ventana.mostrar("el corte es: "+corte);
+                ordenNum(ordenT,corte);
+                Collections.sort(user);
+                Collections.copy(user, user);
+            }
+            
             //ya user esta ordenada por turnos 
             ventana.mostrar("el nuevo orden es: ");
             for (int i = 0; i < user.size(); i++) {
@@ -136,7 +136,6 @@ public void runServer(){
         }
     }
     
-    
     private void cargarCasillas(){
         for (int i = 0; i < 9; i++) {
             for(int j=0;j<2;j++){
@@ -164,23 +163,23 @@ public void runServer(){
         
         switch (opcion){
             
-            case 0:return  "MEMORY";//"GATO";
-            case 1:return  "MEMORY";//SOPA";
-            case 2:return  "MEMORY";//"PATH";
-            case 3:return  "MEMORY";//"MEMORY";
+            case 0:return  "GATO";
+            case 1:return  "PATH";//"SOPA";
+            case 2:return  "PATH";
+            case 3:return  "MEMORY";
             case 4:return  "MEMORY";//"CAT";
-            case 5:return  "MEMORY";//"BOMBER";
-            case 6:return  "MEMORY";//"WHO?";
-            case 7:return  "MEMORY";//"COINS";
-            case 8:return  "MEMORY";//"CARDS";
-            case 9:return  "MEMORY";//"CARCEL";
-            case 10:return "MEMORY";//"TUBO";//CORREGIR ESTE CODIGO
-            case 11:return "MEMORY";//"TUBO";
-            case 12:return "MEMORY";//"TUBO";
-            case 13:return "MEMORY";//"ESTRELLA";
-            case 14:return "MEMORY";//"FUEGO";
-            case 15:return "MEMORY";//"HIELO";
-            case 16:return "MEMORY";//"COLA";
+            case 5:return  "PATH";//"BOMBER";
+            case 6:return  "WHO?";
+            case 7:return  "COINS";
+            case 8:return  "PATH";//"CARDS";
+            case 9:return  "CARCEL";
+            case 10:return "TUBO";//CORREGIR ESTE CODIGO
+            case 11:return "TUBO";
+            case 12:return "TUBO";
+            case 13:return "ESTRELLA";
+            case 14:return "FUEGO";
+            case 15:return "HIELO";
+            case 16:return "COLA";
         
         }
         return null;
