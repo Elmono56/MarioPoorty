@@ -242,6 +242,45 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
                  salida.writeInt(11);
                  break;
              }
+             
+             
+             
+             case 13:{
+                 
+                 String enemigo = entrada.readUTF();
+                 
+                 for (int i = 0; i<enemigos.size();i++){
+                     
+                     enemigos.get(i).salida.writeInt(13);
+                     enemigos.get(i).salida.writeUTF(enemigo);
+                     
+                     
+                 }
+                 break;
+                 
+                 
+                 
+             }
+             
+             case 14:{
+                 
+                 String enemigo = entrada.readUTF();
+                 int valor = entrada.readInt();
+                 int tipo = entrada.readInt();
+                 
+                  for (int i = 0; i<enemigos.size();i++){
+                      
+                      if (enemigos.get(i).getNameUser().equals(enemigo)){
+                          enemigos.get(i).salida.writeInt(valor);
+                          enemigos.get(i).salida.writeInt(tipo);
+                          break;
+                      }
+                      
+                  }
+                 break;
+                 
+                 
+             }
         }
              
              

@@ -41,6 +41,9 @@ public class JuegosFactory {
             case MEMORYPATH:{
                 return new MemoryPath();
             }
+            case MARIOCARDS:{
+                return new MarioCards();
+            }
         }
         return null;
     }

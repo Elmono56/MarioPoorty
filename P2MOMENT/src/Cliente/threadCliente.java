@@ -7,6 +7,7 @@ package Cliente;
 import GamesFactory.CollectCoins;
 import GamesFactory.JuegoGato;
 import GamesFactory.JuegosFactory;
+import GamesFactory.MarioCards;
 import GamesFactory.MemoryPath;
 //import GamesFactory.MemoryPath;
 import Personajes.*;
@@ -308,7 +309,11 @@ public class threadCliente extends Thread{
                         case "PATH" :{
                             memoryPath(jugador,nombrejuego);
                             break;
-                        }           
+                        }
+                        case "CARDS":{
+                            cards(jugador,nombrejuego);
+                            break;
+                        }
                     }
                   esperar();
                   break;
@@ -337,6 +342,25 @@ public class threadCliente extends Thread{
                 }
                 case 11:{
                     continuar();
+                    break;
+                }
+                
+                case 13:{
+                    String enemigo = entrada.readUTF();
+                    
+                    MarioCards ventanajuego = (MarioCards) JuegosFactory.crearJuego(JuegosFactory.Games.MARIOCARDS);
+                    ventanajuego.setVisible(true);       
+                    ventanajuego.setTitle(this.name);
+                    ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
+                    
+                    while (ventanajuego.getValor()==-1){
+                        System.out.print("");
+                        
+                    }
+                    salida.writeInt(14);
+                    salida.writeUTF(enemigo);
+                    salida.writeInt(ventanajuego.getValor());
+                    salida.writeInt(ventanajuego.getTipo());
                     break;
                 }
             }
@@ -489,6 +513,74 @@ public class threadCliente extends Thread{
         setJuegoActivo(false);
     }
     
+    private void cards(Personajes jugadorP, String nombreJuego) throws IOException{
+        
+        MarioCards ventanajuego = (MarioCards) JuegosFactory.crearJuego(JuegosFactory.Games.MARIOCARDS);
+        ventanajuego.setVisible(true);       
+        ventanajuego.setTitle(this.name);
+        ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        
+        while(ventanajuego.getValor()==-1){
+            System.out.print("");
+        }
+        
+        salida.writeInt(13);
+        salida.writeUTF(this.name);
+        
+        int cont = 0;
+        
+        int[] valores = new int[jugadores.size()-1];
+        int[] tipos = new int[jugadores.size()-1];
+        
+        while(cont<jugadores.size()-1){
+            valores[cont] = entrada.readInt();
+            tipos[cont] = entrada.readInt();
+            cont++;
+        }
+        
+        boolean ganador = true;
+        
+        cont=0;
+        
+        while (cont<jugadores.size()-1){
+            if (revisarValores(valores[cont],tipos[cont],ventanajuego.getValor(),ventanajuego.getTipo()) == false){
+                ganador=false;
+                break;
+            }
+            cont++;
+            
+        }
+        if (ganador==true){
+            JOptionPane.showMessageDialog(null, "HAS GANADO", "FELICIDADES", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            perdida();
+        }
+        
+        
+        setJuegoActivo(false);
+    }
+    
+    
+    private boolean revisarValores(int valores, int tipos, int valorJ, int tipoJ){
+        
+        //System.out.println("ValorCartaEnemigo:" + valores + "     ValorCartaNosotros" + valorJ);
+        //System.out.println("TipoCartaEnemigo:" + tipos + "      TipoCartaNosotros" + tipoJ);
+        
+        
+        if (valorJ<valores){
+            return false;
+        }
+
+        else if (valorJ==valores){
+
+            if (tipoJ<=tipos){
+            return false;
+            } 
+        }
+        return true;
+        
+    }
             
     private void juegoGato(Personajes jugadorP, String nombreJuego) throws IOException{
         
