@@ -281,6 +281,7 @@ public class threadCliente extends Thread{
                     switch(nombrejuego){
                         case "GATO" :{
                             juegoGato(jugador,nombrejuego);
+                            
                             break;
                         }
                         case "COINS" :{
