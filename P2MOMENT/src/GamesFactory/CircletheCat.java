@@ -21,7 +21,7 @@ public class CircletheCat extends javax.swing.JFrame {
     public static final int DIMENSIONES = 13;
     JButton[][] botones = new JButton[DIMENSIONES][DIMENSIONES];
     ImageIcon iconoM = new ImageIcon(getClass().getResource("/Imagenes/tanookimario.PNG"));
-    
+    boolean activo = true;
     
 
     /**
@@ -168,6 +168,7 @@ public class CircletheCat extends javax.swing.JFrame {
         botones[x][y+1].getBackground()==Color.GREEN){
             
             JOptionPane.showMessageDialog(this, "GANASTE","FELICIDADES", JOptionPane.INFORMATION_MESSAGE);
+            this.activo = false;
             
         }
         
@@ -177,6 +178,7 @@ public class CircletheCat extends javax.swing.JFrame {
     boolean analizarPerdedor(int x, int y){
         if(botones[x][y].getBackground()==Color.BLACK){
                  JOptionPane.showMessageDialog(this, "PERDISTE","Error", JOptionPane.ERROR_MESSAGE);
+                 this.activo = false;
                  return true;
         }
         return false;
@@ -193,6 +195,14 @@ public class CircletheCat extends javax.swing.JFrame {
     void moverDerecha(int x, int y){
         
     }
+
+    public boolean isActivo() {
+        return activo;
+    }
+    
+    
+    
+    
     
 
     /**

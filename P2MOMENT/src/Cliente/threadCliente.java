@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Cliente;
+import GamesFactory.CircletheCat;
 import GamesFactory.CollectCoins;
 import GamesFactory.JuegoGato;
 import GamesFactory.JuegosFactory;
@@ -314,6 +315,10 @@ public class threadCliente extends Thread{
                             cards(jugador,nombrejuego);
                             break;
                         }
+                        case "CAT":{
+                            catchCat(jugador,nombrejuego);
+                            break;
+                        }
                     }
                   esperar();
                   break;
@@ -512,6 +517,21 @@ public class threadCliente extends Thread{
         
         setJuegoActivo(false);
     }
+    
+    private void catchCat(Personajes jugadorP, String nombreJuego){
+    
+        CircletheCat ventanajuego = (CircletheCat) JuegosFactory.crearJuego(JuegosFactory.Games.CATCHTHECAT);
+        ventanajuego.setVisible(true);       
+        ventanajuego.setTitle(this.name);
+        ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        
+        while(ventanajuego.isActivo()){
+            System.out.print("");
+        }
+        
+        setJuegoActivo(false);
+    }
+    
     
     private void cards(Personajes jugadorP, String nombreJuego) throws IOException{
         

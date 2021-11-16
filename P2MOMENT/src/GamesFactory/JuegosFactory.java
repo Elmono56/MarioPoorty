@@ -44,6 +44,9 @@ public class JuegosFactory {
             case MARIOCARDS:{
                 return new MarioCards();
             }
+            case CATCHTHECAT:{
+                return new CircletheCat();
+            }
         }
         return null;
     }
