@@ -164,23 +164,23 @@ public void runServer(){
         
         switch (opcion){
             
-            case 0:return  "GATO";//"GATO";
-            case 1:return  "GATO";//SOPA";
-            case 2:return  "GATO";//"PATH";
-            case 3:return  "GATO";//"MEMORY";
-            case 4:return  "GATO";//"CAT";
-            case 5:return  "GATO";//"BOMBER";
-            case 6:return  "GATO";//"WHO?";
-            case 7:return  "GATO";//"COINS";
-            case 8:return  "GATO";//"CARDS";
-            case 9:return  "GATO";//"CARCEL";
-            case 10:return "GATO";//"TUBO";//CORREGIR ESTE CODIGO
-            case 11:return "GATO";//"TUBO";
-            case 12:return "GATO";//"TUBO";
-            case 13:return "GATO";//"ESTRELLA";
-            case 14:return "GATO";//"FUEGO";
-            case 15:return "GATO";//"HIELO";
-            case 16:return "GATO";//"COLA";
+            case 0:return  "COINS";//"GATO";
+            case 1:return  "COINS";//SOPA";
+            case 2:return  "COINS";//"PATH";
+            case 3:return  "COINS";//"MEMORY";
+            case 4:return  "COINS";//"CAT";
+            case 5:return  "COINS";//"BOMBER";
+            case 6:return  "COINS";//"WHO?";
+            case 7:return  "COINS";//"COINS";
+            case 8:return  "COINS";//"CARDS";
+            case 9:return  "COINS";//"CARCEL";
+            case 10:return "COINS";//"TUBO";//CORREGIR ESTE CODIGO
+            case 11:return "COINS";//"TUBO";
+            case 12:return "COINS";//"TUBO";
+            case 13:return "COINS";//"ESTRELLA";
+            case 14:return "COINS";//"FUEGO";
+            case 15:return "COINS";//"HIELO";
+            case 16:return "COINS";//"COLA";
         
         }
         return null;

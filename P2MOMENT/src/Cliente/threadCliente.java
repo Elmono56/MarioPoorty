@@ -129,7 +129,25 @@ public class threadCliente extends Thread{
                     if(tablero.getTurno()==this.acceso){
                         tablero.setResultadoDados(0);
                         
+                       Personajes actual = null;
+                       
+                        for (int i = 0; i < jugadores.size(); i++) {
+                            if (jugadores.get(i).getTurno() == this.acceso){
+                                actual = jugadores.get(i);
+                            }
+                        }
+                        
+                        if (actual.isJuegoPendiente() == true){
+//                            salida.writeInt(8);
+//                            salida.writeInt(this.acceso);
+//                            salida.writeUTF(actual.getJuegotxt());
+                            tablero.setResultadoDados(0);
+                            actual.setJuegoPendiente(false);
+                            continuar();
+                            break;
+                        }
                          //System.out.println("puedo tirar "+name);
+                         
                          
                          while(tablero.getBtnLanzar()==true){                            
                              System.out.print("");//no eliminar porque no funciona el codigo 
@@ -452,6 +470,8 @@ public class threadCliente extends Thread{
             System.out.print("");
         }
         setJuegoActivo(false);
+        jugadorP.setJuegoPendiente(ventanajuego.isResultado());
+        jugadorP.setJuegotxt(nombreJuego);
    
     }
     

@@ -30,6 +30,7 @@ public class CollectCoins extends javax.swing.JFrame {
     ImageIcon iconoM = new ImageIcon(getClass().getResource("/Imagenes/moneda2.PNG"));
     boolean activo = true;
     CronoThread cronometro;
+    boolean resultado;
         
     public CollectCoins() {
         initComponents();
@@ -48,6 +49,17 @@ public class CollectCoins extends javax.swing.JFrame {
         this.cronometro = new CronoThread(this,tiempos[indice],0);
         
     }
+
+    public boolean isResultado() {
+        return resultado;
+    }
+
+    public void setResultado(boolean resultado) {
+        this.resultado = resultado;
+    }
+    
+    
+    
     
     void generarMonedas(){
         for(int i=0;i<DIMENSIONES;i++)
@@ -136,9 +148,11 @@ public class CollectCoins extends javax.swing.JFrame {
         if (this.cronometro.getIntSeconds()==0 & this.cronometro.getIntMinutes() == 0){
             if(finJuego()){
                 JOptionPane.showMessageDialog(this, "GANASTE","FELICIDADES", JOptionPane.INFORMATION_MESSAGE);
+                this.resultado = true;
             }
             else{
                 JOptionPane.showMessageDialog(this, "PERDISTE","Error", JOptionPane.ERROR_MESSAGE);
+                this.resultado = false;
             }
         }
     }

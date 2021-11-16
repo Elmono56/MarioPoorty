@@ -11,7 +11,7 @@ import javax.swing.JButton;
 
 public  class Personajes implements Serializable{
         private boolean inmovil,repite,juegoPendiente;
-        private String nombre;
+        private String nombre, juegotxt;
         private JButton refButton;
         private int numero,casilla,turno,cantInmovil;
         private ImageIcon imagen;
@@ -75,6 +75,14 @@ public  class Personajes implements Serializable{
     public boolean getRepite() {
         return this.repite;
     }
+
+    public boolean isJuegoPendiente() {
+        return juegoPendiente;
+    }
+
+    public String getJuegotxt() {
+        return juegotxt;
+    }
     
     
     
@@ -107,6 +115,14 @@ public  class Personajes implements Serializable{
 
     public void setNumero(int numero) {
         this.numero = numero;
+    }
+
+    public void setJuegoPendiente(boolean juegoPendiente) {
+        this.juegoPendiente = juegoPendiente;
+    }
+
+    public void setJuegotxt(String juegotxt) {
+        this.juegotxt = juegotxt;
     }
     
 

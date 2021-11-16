@@ -306,7 +306,7 @@ public class GuessWho extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(this, "PERDISTE","Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+        this.setVisible(false);
         
         
     }
