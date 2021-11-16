@@ -44,6 +44,9 @@ public class JuegosFactory {
             case SUPERBROSM:{
                 return new Memory();
             }
+            case SOPALETRAS:{
+                return new SopaLetras();
+            }
         }
         return null;
     }

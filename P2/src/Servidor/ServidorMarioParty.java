@@ -163,23 +163,23 @@ public void runServer(){
         
         switch (opcion){
             
-            case 0:return  "GATO";
-            case 1:return  "PATH";//"SOPA";
-            case 2:return  "PATH";
-            case 3:return  "MEMORY";
-            case 4:return  "MEMORY";//"CAT";
-            case 5:return  "PATH";//"BOMBER";
-            case 6:return  "WHO?";
-            case 7:return  "COINS";
-            case 8:return  "PATH";//"CARDS";
-            case 9:return  "CARCEL";
-            case 10:return "TUBO";//CORREGIR ESTE CODIGO
-            case 11:return "TUBO";
-            case 12:return "TUBO";
-            case 13:return "ESTRELLA";
-            case 14:return "FUEGO";
-            case 15:return "HIELO";
-            case 16:return "COLA";
+            case 0:return  "SOPA";//"GATO";
+            case 1:return  "SOPA";//"SOPA";
+            case 2:return  "SOPA";//"PATH";
+            case 3:return  "SOPA";//"MEMORY";
+            case 4:return  "SOPA";//"CAT";
+            case 5:return  "SOPA";//"BOMBER";
+            case 6:return  "SOPA";//"WHO?";
+            case 7:return  "SOPA";//"COINS";
+            case 8:return  "SOPA";//"CARDS";
+            case 9:return  "SOPA";//"CARCEL";
+            case 10:return "SOPA";//"TUBO";//CORREGIR ESTE CODIGO
+            case 11:return "SOPA";//"TUBO";
+            case 12:return "SOPA";//"TUBO";
+            case 13:return "SOPA";//"ESTRELLA";
+            case 14:return "SOPA";//"FUEGO";
+            case 15:return "SOPA";//"HIELO";
+            case 16:return "SOPA";//"COLA";
         
         }
         return null;

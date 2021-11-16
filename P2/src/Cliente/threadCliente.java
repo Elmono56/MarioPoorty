@@ -10,6 +10,7 @@ import GamesFactory.JuegoGato;
 import GamesFactory.JuegosFactory;
 import GamesFactory.Memory;
 import GamesFactory.MemoryPath;
+import GamesFactory.SopaLetras;
 import Personajes.*;
 import Juegos.*;
 import java.io.*;
@@ -300,7 +301,11 @@ public class threadCliente extends Thread{
                             guessWho(jugador,nombrejuego);
                             break;
                         }
-                        //default:continuar();
+                        case"SOPA":{
+                        
+                            sopaLetras(jugador,nombrejuego);
+                            break;
+                        }
                     }
                   esperar();
                   break;
@@ -534,7 +539,19 @@ public class threadCliente extends Thread{
 
     }
     
-    
+    private void sopaLetras(Personajes jugadorP, String nombreJuego){
+        SopaLetras ventanajuego=(SopaLetras) JuegosFactory.crearJuego(JuegosFactory.Games.SOPALETRAS);
+        ventanajuego.setVisible(true);       
+        ventanajuego.setTitle(this.name);
+        ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        
+        while(ventanajuego.isActivo()){
+            System.out.print("");
+        }
+        
+        setJuegoActivo(false);
+
+    }
      
     private void memory(Personajes jugadorP, String nombreJuego) throws IOException{
         int turno;

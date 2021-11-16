@@ -5,7 +5,8 @@
  */
 package MarioThreads;
 
-import GamesFactory.CollectCoins;
+import GamesFactory.SopaLetras;
+import static java.lang.Thread.sleep;
 import javax.swing.JFrame;
 
 /**
@@ -13,18 +14,18 @@ import javax.swing.JFrame;
  * @author andres chaves y pablo hidalgo
  */
 
-public class CronoThread extends Thread{
-    private CollectCoins refPantallaCC;
+public class CronoThreadSopa extends Thread{
+    private SopaLetras refPantallaCC;
     private boolean isRunning = true;
     private int seconds = 0;
     private int minutes = 0;
 
-    public CronoThread(JFrame refPantalla , int segundos, int minutos) {
-        this.seconds = segundos;
-        this.minutes = minutos;
+    public CronoThreadSopa(JFrame refPantalla) {
+        this.seconds =59;
+        this.minutes =01;
         
         try{
-            this.refPantallaCC = (CollectCoins) refPantalla;
+            this.refPantallaCC = (SopaLetras) refPantalla;
         }
         catch(Exception ex){
 
