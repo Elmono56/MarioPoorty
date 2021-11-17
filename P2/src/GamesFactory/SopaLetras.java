@@ -34,7 +34,7 @@ public class SopaLetras extends javax.swing.JFrame {
     private Random r= new Random();
     private ArrayList<String> arrayList = new ArrayList<>();
     private String palabra = "";
-    int contadorBuenas = 1;
+    int buenas = 1;
     private boolean activo;
 
     private String letras[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i",
@@ -178,105 +178,106 @@ public class SopaLetras extends javax.swing.JFrame {
                 arrayLetras[i][n] = 0;
             }
         }
-        int palabra1 = r.nextInt(30);
-        int palabra2 = r.nextInt(30);
-        int palabra3 = r.nextInt(30);
-        int palabra4 = r.nextInt(30);
+        int palabra1 = r.nextInt(100);
+        int palabra2 = r.nextInt(100);
+        int palabra3 = r.nextInt(100);
+        int palabra4 = r.nextInt(100);
         
-        String Spalabra1 = arrayList.get(palabra1);
-        String Spalabra2 = arrayList.get(palabra2);
-        String Spalabra3 = arrayList.get(palabra3);
-        String Spalabra4 = arrayList.get(palabra4);
+        String sP1 = arrayList.get(palabra1);
+        String sP2 = arrayList.get(palabra2);
+        String sP3 = arrayList.get(palabra3);
+        String sP4 = arrayList.get(palabra4);
 
-        array4Palabras.add(Spalabra1);
-        array4Palabras.add(Spalabra2);
-        array4Palabras.add(Spalabra3);
-        array4Palabras.add(Spalabra4);
-        if (!validarPosicion(Spalabra1, posXP1, posYP1, "h")) {
+        array4Palabras.add(sP1);
+        array4Palabras.add(sP2);
+        array4Palabras.add(sP3);
+        array4Palabras.add(sP4);
+        
+        if (!validarPosicion(sP1, posXP1, posYP1, "h")) {
 
-            while (!validarPosicion(Spalabra1, posXP1, posYP1, "h")) {
+            while (!validarPosicion(sP1, posXP1, posYP1, "h")) {
                 posXP1 = r.nextInt(1);
                 posYP1 = r.nextInt(4);
             }
-            for (int n = 0; n < Spalabra1.length(); n++) {
+            for (int n = 0; n < sP1.length(); n++) {
                 arrayLetras[posXP1][posYP1] = 1;
-                char c = Spalabra1.charAt(n);
+                char c = sP1.charAt(n);
                 tableroLabels[posXP1][posYP1].setText(String.valueOf(c));
                 posXP1++;
             }
         } else {
-            for (int n = 0; n < Spalabra1.length(); n++) {
+            for (int n = 0; n < sP1.length(); n++) {
                 arrayLetras[posXP1][posYP1] = 1;
-                char c = Spalabra1.charAt(n);
+                char c = sP1.charAt(n);
                 tableroLabels[posXP1][posYP1].setText(String.valueOf(c));
                 posXP1++;
             }
 
         }
 
-        if (!validarPosicion(Spalabra2, posXP2, posYP2, "v")) {
+        if (!validarPosicion(sP2, posXP2, posYP2, "v")) {
 
-            while (!validarPosicion(Spalabra2, posXP2, posYP2, "v")) {
+            while (!validarPosicion(sP2, posXP2, posYP2, "v")) {
                 posXP2 = r.nextInt(4);
                 posYP2 = r.nextInt(1);
             }
-            for (int n = 0; n < Spalabra2.length(); n++) {
+            for (int n = 0; n < sP2.length(); n++) {
                 arrayLetras[posXP2][posYP2] = 2;
-                char c = Spalabra2.charAt(n);
+                char c = sP2.charAt(n);
                 tableroLabels[posXP2][posYP2].setText(String.valueOf(c));
                 posYP2++;
             }
         } else {
-            for (int n = 0; n < Spalabra2.length(); n++) {
+            for (int n = 0; n < sP2.length(); n++) {
                 arrayLetras[posXP2][posYP2] = 2;
-                char c = Spalabra2.charAt(n);
+                char c = sP2.charAt(n);
                 tableroLabels[posXP2][posYP2].setText(String.valueOf(c));
                 posYP2++;
             }
 
         }
 
-        if (!validarPosicion(Spalabra3, posXP3, posYP3, "d")) {
+        if (!validarPosicion(sP3, posXP3, posYP3, "d")) {
 
-            while (!validarPosicion(Spalabra3, posXP3, posYP3, "d")) {
+            while (!validarPosicion(sP3, posXP3, posYP3, "d")) {
                 posXP3 = r.nextInt(3);
                 posYP3 = r.nextInt(3);
             }
-            for (int n = 0; n < Spalabra3.length(); n++) {
+            for (int n = 0; n < sP3.length(); n++) {
                 arrayLetras[posXP3][posYP3] = 3;
-                char c = Spalabra3.charAt(n);
+                char c = sP3.charAt(n);
                 tableroLabels[posXP3][posYP3].setText(String.valueOf(c));
                 posYP3++;
                 posXP3++;
             }
 
         } else {
-            for (int n = 0; n < Spalabra3.length(); n++) {
+            for (int n = 0; n < sP3.length(); n++) {
                 arrayLetras[posXP3][posYP3] = 3;
-                char c = Spalabra3.charAt(n);
+                char c = sP3.charAt(n);
                 tableroLabels[posXP3][posYP3].setText(String.valueOf(c));
                 posYP3++;
                 posXP3++;
             }
 
         }
-        if (!validarPosicion(Spalabra4, posXP4, posYP4, "d")) {
+        if (!validarPosicion(sP4, posXP4, posYP4, "d")) {
 
-            while (!validarPosicion(Spalabra4, posXP4, posYP4, "d")) {
+            while (!validarPosicion(sP4, posXP4, posYP4, "d")) {
                 posXP4 = r.nextInt(3);
                 posYP4 = r.nextInt(3);
             }
-            for (int n = 0; n < Spalabra4.length(); n++) {
+            for (int n = 0; n < sP4.length(); n++) {
                 arrayLetras[posXP4][posYP4] = 4;
-                char c = Spalabra4.charAt(n);
+                char c = sP4.charAt(n);
                 tableroLabels[posXP4][posYP4].setText(String.valueOf(c));
                 posYP4++;
                 posXP4++;
             }
         } else {
-            for (int n = 0; n < Spalabra4.length(); n++) {
+            for (int n = 0; n < sP4.length(); n++) {
                 arrayLetras[posXP4][posYP4] = 4;
-                char c = Spalabra4.charAt(n);
+                char c = sP4.charAt(n);
                 tableroLabels[posXP4][posYP4].setText(String.valueOf(c));
                 posYP4++;
                 posXP4++;
@@ -284,21 +285,11 @@ public class SopaLetras extends javax.swing.JFrame {
 
         }
         
-        P1.setText(Spalabra1);
-        P2.setText(Spalabra2);
-        P3.setText(Spalabra3);
-        P4.setText(Spalabra4);
+        P1.setText(sP1);
+        P2.setText(sP2);
+        P3.setText(sP3);
+        P4.setText(sP4);
 
-//        es para ver la posicion de las palabras
-//        for (int i = 0; i < tamMatriz; i++) {
-//            for (int n = 0; n < tamMatriz; n++) {
-//                System.out.print(arrayLetras[i][n] + " ");
-//                if (n != tamMatriz) {
-//                    System.out.print("\t");
-//                }
-//            }
-//            System.out.println();
-//        }
 
     }
     
@@ -371,14 +362,14 @@ public class SopaLetras extends javax.swing.JFrame {
                         }
                     }
                 }
-                if (contadorBuenas == 4) {
+                if (buenas == 4) {
                     JOptionPane.showMessageDialog(null, "Ganaste");
                     this.activo=false;
                     this.setVisible(false);
                     return;
                 }
 
-                contadorBuenas++;
+                buenas++;
                 return;
             }
         }
