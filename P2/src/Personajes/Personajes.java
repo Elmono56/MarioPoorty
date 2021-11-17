@@ -6,11 +6,12 @@ import javax.swing.JButton;
 
 /**
  *
- * @author chave
- */
+* @author Andres Chaves y Pablo Hidalgo
+
+*/
 
 public  class Personajes implements Serializable{
-        private boolean inmovil,repite,juegoPendiente;
+        private boolean inmovil,repite;
         private String nombre;
         private JButton refButton;
         private int numero,casilla,turno,cantInmovil;

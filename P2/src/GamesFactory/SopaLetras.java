@@ -16,8 +16,9 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author chave
- */
+* @author Andres Chaves y Pablo Hidalgo
+*/
+
 public class SopaLetras extends javax.swing.JFrame {
     
     private int size[] = new int[3];
@@ -80,9 +81,7 @@ public class SopaLetras extends javax.swing.JFrame {
     for(int i=0;i<tamMatriz;i++){
         for(int j=0;j<tamMatriz;j++){
             tableroLabels[i][j] = new JButton();
-            //tableroLabels[i][j].setText("A");
             tableroLabels[i][j].setFont(tableroLabels[i][j].getFont().deriveFont(letra));
-            //tableroLabels[i][j].setBounds(ajuste*i, ajuste*j,ajuste,ajuste);
             tableroLabels[i][j].addActionListener(new ActionListener(){
                 
                     @Override
@@ -92,7 +91,6 @@ public class SopaLetras extends javax.swing.JFrame {
                                 if (ae.getSource() == tableroLabels[j][m]) {
                                     palabra += tableroLabels[j][m].getText();
                                     tableroLabels[j][m].setBackground(Color.blue);
-                                    //System.out.println(palabra);
                                 }
                             }
                         }
@@ -401,10 +399,7 @@ public class SopaLetras extends javax.swing.JFrame {
         return this.activo;
     }
     
-    
-    
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -553,9 +548,7 @@ public class SopaLetras extends javax.swing.JFrame {
         palabra = "";
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

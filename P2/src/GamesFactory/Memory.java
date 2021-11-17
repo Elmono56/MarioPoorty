@@ -1,22 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GamesFactory;
 
-import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 
 /**
  *
- * @author chave
- */
+* @author Andres Chaves y Pablo Hidalgo
+*/
 public class Memory extends javax.swing.JFrame {
 
 
@@ -209,9 +203,7 @@ public class Memory extends javax.swing.JFrame {
     public int getIntentos() {
         return this.intentos;
     }
-    
-    
-    
+
     public void setMiTurno(int miTurno) {
         this.miTurno = miTurno;
     }
@@ -219,8 +211,7 @@ public class Memory extends javax.swing.JFrame {
     public int getParejas() {
         return parejas;
     }
-    
-  
+
     public void aumentarParejas(){
         this.parejas++;
     }
@@ -335,9 +326,7 @@ public class Memory extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

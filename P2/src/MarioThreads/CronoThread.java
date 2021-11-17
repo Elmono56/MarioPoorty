@@ -1,17 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package MarioThreads;
 
+package MarioThreads;
 import GamesFactory.CollectCoins;
 import javax.swing.JFrame;
 
 /**
  *
- * @author andres chaves y pablo hidalgo
- */
+* @author Andres Chaves y Pablo Hidalgo
+
+*/
 
 public class CronoThread extends Thread{
     private CollectCoins refPantallaCC;

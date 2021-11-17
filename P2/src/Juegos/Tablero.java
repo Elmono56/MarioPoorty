@@ -12,7 +12,7 @@ import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 
 /**
  *
- * @author chave
+ * @author Andres Chaves y Pablo Hidalgo
  */
 public class Tablero extends javax.swing.JFrame {
     
@@ -47,9 +47,6 @@ public class Tablero extends javax.swing.JFrame {
         initBoard();
     }
 
-
-
-    
     private void initUsers(){
     
         int playersQty= jugadores.size();
@@ -219,7 +216,6 @@ public class Tablero extends javax.swing.JFrame {
             }
         }
         
-        //System.out.println(jugadorEnTurno.getName()+" "+jugadorEnTurno.getInmovil());
         
         if(jugadorEnTurno.getInmovil()==true){
             System.out.println("estoy inmovil "+jugadorEnTurno.getName());
@@ -242,17 +238,12 @@ public class Tablero extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLanzarActionPerformed
 
 
-
-
-
 //metodos
     public void actualizarTurno(){
         this.turno++;
         if(this.turno>max){
             this.turno=0;
-        }
-        
-        //System.out.print("");
+        }        
         for (int i = 0; i < jugadores.size(); i++) {
             if(this.jugadores.get(i).getTurno()==this.turno){                    
                     jButtonLanzar.setEnabled(true);
@@ -298,7 +289,7 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     
-    private void actualizarJugadorInmovil(Personajes jugador){
+    public void actualizarJugadorInmovil(Personajes jugador){
     
         if(jugador.getCantInmovil()>1){
             jugador.setCantInmovil((jugador.getCantInmovil()-1));
@@ -328,9 +319,6 @@ public class Tablero extends javax.swing.JFrame {
         ptoCasilla=buttonArray[jugador.getCasillaActual()].getLocation();
         botonFicha.setLocation(ptoCasilla.x, ptoCasilla.y+jugador.getTurno()*20);
     }
-
-
-        
     
     private Personajes verificarCasilla(JButton casilla,Personajes jugador){
         
@@ -390,6 +378,7 @@ public class Tablero extends javax.swing.JFrame {
             case "START":{break;}
             
             default:{
+                if(jugadorEnTurno.getInmovil())break;
                 setJuego(true);    
                 setNombrejuego(casilla.getText());
                 break;
@@ -423,8 +412,7 @@ public class Tablero extends javax.swing.JFrame {
         return vtnCola.getSeleccionado();
     
     }
-    
-    
+
     private int encontrarTubo(String tubo){
     
         for (int i = 0; i < buttonArray.length; i++) {
@@ -433,8 +421,7 @@ public class Tablero extends javax.swing.JFrame {
         }
         return 0;
     }
-    
-    
+
     private Personajes atacarEnemigo(Personajes jugador,int tipo) {
        
         regresarJugador vtnRegresar=null;
@@ -470,15 +457,15 @@ public class Tablero extends javax.swing.JFrame {
         
     }
     
-    
-    
     //GETTER
     public int getId(){
         return this.id;
     }
+    
     public int getTubo(){
         return  this.tubo;
     }
+    
     public int getTurno() {
         return this.turno;
     }
@@ -515,8 +502,6 @@ public class Tablero extends javax.swing.JFrame {
         this.nombrejuego = nombrejuego;
     }
     
-    
-    
     public boolean haGanado(){
     return this.finish;
     }
@@ -528,6 +513,7 @@ public class Tablero extends javax.swing.JFrame {
     public boolean getFuego() {
         return this.fuego;
     }
+    
     public boolean getHielo() {
         return this.hielo;
     }
@@ -542,6 +528,7 @@ public class Tablero extends javax.swing.JFrame {
     public void setTubo(int tubo){
         this.tubo=tubo;
     }
+    
     public void setEnemigo(Personajes enemigo) {
         this.enemigo = enemigo;
     }
@@ -578,16 +565,11 @@ public class Tablero extends javax.swing.JFrame {
     public void setResultadoDados(int resultadoDados) {
         this.resultadoDados = resultadoDados;
     }
+    
     public void setCola(boolean cola) {
         this.cola=cola;
     }
 
-
-    
-    
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

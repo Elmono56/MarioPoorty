@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Servidor;
 import Personajes.Personajes;
 import Servidor.ServidorMarioParty;
@@ -13,8 +9,8 @@ import java.util.Random;
 
 /**
  *
- * @author chave
- */
+* @author Andres Chaves y Pablo Hidalgo
+*/
 
 
 public class threadServidor extends Thread implements Serializable,Comparable<threadServidor>{
@@ -273,27 +269,49 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
                     }
                 break;
             }
-        }
+            
+             case 14:{
+                 
+                 String enemigo = entrada.readUTF();
+                 
+                 for (int i = 0; i<enemigos.size();i++){
+                     
+                     enemigos.get(i).salida.writeInt(13);
+                     enemigos.get(i).salida.writeUTF(enemigo);
+                 }
+                 break;
+             }
              
-             
-             
-             
-            } catch (Exception e) { 
-                
-                System.out.println("El cliente termino la conexion\n");break;
+             case 15:{
+                 
+                 String enemigo = entrada.readUTF();
+                 int valor = entrada.readInt();
+                 int tipo = entrada.readInt();
+                 
+                  for (int i = 0; i<enemigos.size();i++){
+                      
+                      if (enemigos.get(i).getNameUser().equals(enemigo)){
+                          enemigos.get(i).salida.writeInt(valor);
+                          enemigos.get(i).salida.writeInt(tipo);
+                          break;
+                      }
+                  }
+                 break;
                 }
             }
-            servidor.ventana.mostrar("Se removio un usuario\n");
-
-            try{
-                servidor.ventana.mostrar("Se desconecto un usuario: "+nameUser+"\n");
-                cliente.close();
-            }	
-            catch(Exception et){
-                servidor.ventana.mostrar("no se puede cerrar el socket\n");   
+        } catch (Exception e) {
+            System.out.println("El cliente termino la conexion\n");break;
             }
+        }
+        servidor.ventana.mostrar("Se removio un usuario\n");
+        try{
+            servidor.ventana.mostrar("Se desconecto un usuario: "+nameUser+"\n");
+            cliente.close();
+        }catch(Exception et){
+            servidor.ventana.mostrar("no se puede cerrar el socket\n");   
+        }
         
-     }
+    }
       
     
 //metodos
@@ -336,7 +354,7 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
      
 
 //Getter
-     public String getNameUser(){
+    public String getNameUser(){
        return nameUser;
      }
 
@@ -352,7 +370,7 @@ public class threadServidor extends Thread implements Serializable,Comparable<th
     
 //SETTER
     
-     public void setNameUser(String name){
+    public void setNameUser(String name){
        nameUser=name;
      }
 

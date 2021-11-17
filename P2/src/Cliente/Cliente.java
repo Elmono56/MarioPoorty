@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Cliente;
 import java.io.*;
 import java.net.*;
@@ -12,7 +8,7 @@ import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 
 /**
  *
- * @author chave
+ * @author Andres Chaves y Pablo Hidalgo 
  */
 
 public class Cliente {
@@ -30,10 +26,6 @@ public class Cliente {
    private ObjectInputStream entradaObj=null;
    private ObjectOutputStream salidaObj=null;
  
-   /** Creates a new instance of Cliente */
-   
-   
-   
    
    public Cliente(Juego vent) throws IOException
    {      
@@ -116,12 +108,7 @@ public class Cliente {
          System.out.println("\tEl servidor no esta levantado");
          System.out.println("\t=============================");
       }
-      
-      // solo se le pasa entrada pues es solo para leer mensajes
-      // el hiloCliente lee lo que el servidor le envia, opciones y como tiene referencia
-      // a la ventana gato puede colocar en la pantalla cualquier cosa, como las
-      //imagenes de X o O, llamar a metodo marcar, colocar el nombre de enemigo
-      // o el suyo propio
+
       new threadCliente(entrada,entradaObj,salida,ventanaCliente,nomCliente).start();
    }
    

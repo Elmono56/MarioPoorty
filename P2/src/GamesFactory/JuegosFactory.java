@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GamesFactory;
 
 /**
  *
- * @author hidal
- */
+* @author Andres Chaves y Pablo Hidalgo
+*/
+
 public class JuegosFactory {
     
     
@@ -46,6 +43,9 @@ public class JuegosFactory {
             }
             case SOPALETRAS:{
                 return new SopaLetras();
+            }
+            case MARIOCARDS:{
+                return new MarioCards();
             }
         }
         return null;

@@ -13,8 +13,8 @@ import javax.swing.JButton;
 
 /**
  *
- * @author chave
- */
+* @author Andres Chaves y Pablo Hidalgo
+*/
 public class Cola extends javax.swing.JPanel implements  ActionListener{
 
     private JButton buttonArray[];
@@ -63,6 +63,7 @@ public class Cola extends javax.swing.JPanel implements  ActionListener{
     public int getSeleccionado(){
         return resultado;
     }
+    
     public boolean getSalida(){
     
         return getOut;

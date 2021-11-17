@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Juegos;
 
 import Personajes.Personajes;
@@ -14,10 +10,8 @@ import javax.swing.JButton;
 
 /**
  *
- * @author chave
- */
-
-
+* @author Andres Chaves y Pablo Hidalgo
+*/
 
 public class regresarJugador extends javax.swing.JPanel implements ActionListener{
     
@@ -45,9 +39,6 @@ public class regresarJugador extends javax.swing.JPanel implements ActionListene
                 buttonArray[i].addActionListener(this);
             }
     }
-    
-    
-    
     
     @Override
     public void actionPerformed(ActionEvent e) {

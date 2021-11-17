@@ -3,24 +3,19 @@ package GamesFactory;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 /**
  *
- * @author chave
- */
+* @author Andres Chaves y Pablo Hidalgo
+*/
 public class MemoryPath extends javax.swing.JFrame implements ActionListener {
 
-    /**
-     * Creates new form GuessWho
-     */
     public MemoryPath() {
         initComponents();
         generarTablero();
-        //procesoSeleccion();
     }
     public static final int fila =3 ;
     public static final int col =6 ;
@@ -113,12 +108,7 @@ public class MemoryPath extends javax.swing.JFrame implements ActionListener {
     public void setFilas(int filas) {
         this.filas -= filas;
     }
-    
-    
-    
-    
-    
-    
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -153,9 +143,7 @@ public class MemoryPath extends javax.swing.JFrame implements ActionListener {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

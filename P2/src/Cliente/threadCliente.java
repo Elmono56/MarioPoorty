@@ -1,36 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Cliente;
-import GamesFactory.CollectCoins;
-import GamesFactory.GuessWho;
-import GamesFactory.JuegoGato;
-import GamesFactory.JuegosFactory;
-import GamesFactory.Memory;
-import GamesFactory.MemoryPath;
-import GamesFactory.SopaLetras;
+import GamesFactory.*;
 import Personajes.*;
 import Juegos.*;
 import java.io.*;
-import Juegos.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 
 /**
  *
- * @author chave
- */
+* @author Andres Chaves y Pablo Hidalgo
+*/
 public class threadCliente extends Thread{
    //solo de lectura
      private DataInputStream entrada;
      private ObjectInputStream entradaObj;
-     private ObjectOutputStream salidaObj;
      private DataOutputStream salida;
      private Juego vcli; //referencia a cliente
      private TiroDadosInicio inicio;
@@ -77,7 +64,6 @@ public class threadCliente extends Thread{
                     inicio.setTitle(name);
                     inicio.setVisible(true);
                     inicio.setDefaultCloseOperation(HIDE_ON_CLOSE);
-                    //enviarPuesto();
                     
                     while (true){
                         this.num=inicio.getNum();
@@ -105,8 +91,6 @@ public class threadCliente extends Thread{
                         }
                         JOptionPane.showMessageDialog(null, "POR FAVOR INGRESE UN NUMERO, ENTRE 1 Y 1000");
                     } 
-                    
-                    //System.out.println("mande mi puesto... "+this.num);
                     salida.writeInt(0);
                     salida.writeInt(this.num);
                     break;
@@ -131,8 +115,7 @@ public class threadCliente extends Thread{
                     if(tablero.getTurno()==this.acceso){
                         tablero.setResultadoDados(0);
                         
-                         //System.out.println("puedo tirar "+name);
-                         
+                        
                          while(tablero.getBtnLanzar()==true){                            
                              System.out.print("");//no eliminar porque no funciona el codigo 
                              
@@ -154,7 +137,6 @@ public class threadCliente extends Thread{
                             
                                 if (tablero.getJuego()==true){
                              
-                                    //System.out.println("ENTRO A JUEGO");
                                     int turno = acceso;
                                     salida.writeInt(8);//case de juegos 
                                     salida.writeInt(turno);
@@ -191,7 +173,6 @@ public class threadCliente extends Thread{
                                     System.out.println("repito turno... "+name);
                                     tablero.setRepite(false);
                                     int turno=this.acceso;//tablero.getTurno();
-                                    //System.out.println(turno+" ,"+tablero.getId());
                                     salida.writeInt(4);
                                     salida.writeInt(turno);
                                     actualizarme(turno);
@@ -231,12 +212,10 @@ public class threadCliente extends Thread{
                 case 6:
                 {
                     int turno=entrada.readInt();
-                    //System.out.println("ENTRE "+tablero.getTurno());
                     while(tablero.getTurno()!=turno){
                         tablero.actualizarTurno();
                     }
                     tablero.setRepite(false);
-                    //System.out.println("SALI "+tablero.getTurno());
                 break;
                 }
                 
@@ -306,6 +285,11 @@ public class threadCliente extends Thread{
                             sopaLetras(jugador,nombrejuego);
                             break;
                         }
+                        case "CARDS":{
+                            cards(jugador,nombrejuego);
+                            break;
+                        }
+                        
                     }
                   esperar();
                   break;
@@ -370,6 +354,24 @@ public class threadCliente extends Thread{
                        parejas=entrada.readInt();
                     }
                     
+                    break;
+                }
+                case 13:{
+                    String enemigo = entrada.readUTF();
+                    
+                    MarioCards ventanajuego = (MarioCards) JuegosFactory.crearJuego(JuegosFactory.Games.MARIOCARDS);
+                    ventanajuego.setVisible(true);       
+                    ventanajuego.setTitle(this.name);
+                    ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
+                    
+                    while (ventanajuego.getValor()==-1){
+                        System.out.print("");
+                        
+                    }
+                    salida.writeInt(15);
+                    salida.writeUTF(enemigo);
+                    salida.writeInt(ventanajuego.getValor());
+                    salida.writeInt(ventanajuego.getTipo());
                     break;
                 }
             }
@@ -458,12 +460,12 @@ public class threadCliente extends Thread{
     
     private void actualizarme(int turno){
        
-        System.out.println("ENTRE "+tablero.getTurno());
+        //System.out.println("ENTRE "+tablero.getTurno());
         while(tablero.getTurno()!=turno){
             tablero.actualizarTurno();
         }
         tablero.setRepite(false);
-        System.out.println("SALI "+tablero.getTurno());
+        //System.out.println("SALI "+tablero.getTurno());
         
        
     }
@@ -495,12 +497,9 @@ public class threadCliente extends Thread{
          
         CollectCoins ventanajuego = (CollectCoins) JuegosFactory.crearJuego(JuegosFactory.Games.COINS);
 
-        //System.out.println("estoy en coins");
-
         ventanajuego.setVisible(true);       
         ventanajuego.setTitle(this.name);
         ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
-        //System.out.println("estoy en coins");
         
         
         while(ventanajuego.isVisible()){
@@ -552,7 +551,68 @@ public class threadCliente extends Thread{
         setJuegoActivo(false);
 
     }
-     
+    
+    private void cards(Personajes jugadorP, String nombreJuego) throws IOException{
+        
+        MarioCards ventanajuego = (MarioCards) JuegosFactory.crearJuego(JuegosFactory.Games.MARIOCARDS);
+        ventanajuego.setVisible(true);       
+        ventanajuego.setTitle(this.name);
+        ventanajuego.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        
+        while(ventanajuego.getValor()==-1){
+            System.out.print("");
+        }
+        
+        salida.writeInt(14);
+        salida.writeUTF(this.name);
+        
+        int cont = 0;
+        
+        int[] valores = new int[jugadores.size()-1];
+        int[] tipos = new int[jugadores.size()-1];
+        
+        while(cont<jugadores.size()-1){
+            valores[cont] = entrada.readInt();
+            tipos[cont] = entrada.readInt();
+            cont++;
+        }
+        
+        boolean ganador = true;
+        
+        cont=0;
+        
+        while (cont<jugadores.size()-1){
+            if (revisarValores(valores[cont],tipos[cont],ventanajuego.getValor(),ventanajuego.getTipo()) == false){
+                ganador=false;
+                break;
+            }
+            cont++; 
+        }
+        if (ganador==true){
+            JOptionPane.showMessageDialog(null, "HAS GANADO", "FELICIDADES", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            perdida();
+        }
+        setJuegoActivo(false);
+    }
+    
+    private boolean revisarValores(int valores, int tipos, int valorJ, int tipoJ){
+ 
+        if (valorJ<valores){
+            return false;
+        }
+
+        else if (valorJ==valores){
+
+            if (tipoJ<=tipos){
+            return false;
+            } 
+        }
+        return true;
+        
+    }
+    
     private void memory(Personajes jugadorP, String nombreJuego) throws IOException{
         int turno;
         String enemigo="";
@@ -603,8 +663,6 @@ public class threadCliente extends Thread{
         setJuegoActivo(false);
             
     }
-    
-    
     
     private void juegoGato(Personajes jugadorP, String nombreJuego) throws IOException{
         
@@ -717,6 +775,7 @@ public class threadCliente extends Thread{
     
     }
    
+
 //GETTER AND SETTER
 
     public boolean getJuegoActivo() {
@@ -734,4 +793,5 @@ public class threadCliente extends Thread{
     public void setResultado(boolean resultado) {
         this.resultado = resultado;
     }
+
 }
